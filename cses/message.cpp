@@ -1,4 +1,4 @@
-#include "MyLib/message.hpp"
+#include "cses/message.hpp"
 
 std::string get_message()
 {

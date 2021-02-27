@@ -1,6 +1,6 @@
 cc_test(
-    name = "MyTest",
+    name = "cses_tests",
     srcs = glob(["**/*.cpp"]),
-    deps = ["//MyLib:MyLib",
+    deps = ["//cses:cses",
            "@googletest//:gtest_main"],
 )

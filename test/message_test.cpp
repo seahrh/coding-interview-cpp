@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "MyLib/message.hpp"
+#include "cses/message.hpp"
 
-TEST(message_test,content)
+TEST(HelloWorldTest, TestCase1)
 {
   EXPECT_EQ(get_message(),"Hello World!");
 }

@@ -1,0 +1,6 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.fontSize": 12,
+    "editor.fontFamily": "Hack, Consolas, 'Courier New', monospace",
+    "editor.formatOnSave": true
+}

@@ -30,12 +30,11 @@ Requirement: Sell the most expensive ticket that meets the customer's budget
 Time O((N + M) lg N)
 Space O(N): store the ticket prices in a SortedSet.
 */
-
+#include "cses/sortingandsearching/ConcertTickets.hpp"
 #include <bits/stdc++.h>
 #define lli long long int
 #define li long int
 #define ld long double
-#define ar array
 using namespace std;
 const lli mod = 1e9 + 7;
 

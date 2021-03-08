@@ -20,9 +20,13 @@ Output:
 8
 Explanation: Machine 1 makes two products, machine 2 makes four products and machine 3 makes one product.
 SOLUTION
+Observe that it's optimal for every machine to work simultaneously.
+Then, in `res` time, machine i can create (res / ki) products.
 Binary search on solution space i.e. time range [1, t * k_max].
 Time O(N lg T)
 Space O(1)
+
+See https://usaco.guide/solutions/cses-1620?lang=cpp
 */
 #include <bits/stdc++.h>
 #define ll long long
@@ -31,19 +35,24 @@ using namespace std;
 ll solve(ll n, ll t, vector<ll> ks)
 {
     ll k_max = *max_element(ks.begin(), ks.end());
-    ll lo = 1, hi = t * k_max;
-    ll mid, curr, res = hi;
-    // Time O(N lg T)
+    ll lo = 1;
+    ll hi = t * k_max;
+    ll res = hi;
+    ll mid, _sum;
     while (lo <= hi)
     {
-        mid = (lo / 2) + (hi / 2);
-        curr = 0;
-        // Time O(N)
+        mid = (lo + hi) / 2;
+        _sum = 0;
         for (ll k : ks)
         {
-            curr += mid / k;
+            _sum += (mid / k);
+            // deal with overflow
+            if (_sum >= t)
+            {
+                break;
+            }
         }
-        if (curr >= t)
+        if (_sum >= t)
         {
             res = mid;
             hi = mid - 1;

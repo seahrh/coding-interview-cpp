@@ -18,8 +18,7 @@ Output:
 SOLUTION
 Sort the array then search for the pair from both ends.
 Time O(N lg N)
-Space O(N)
-Requirement to return the positions, hence need to store the positions after sorting.
+Space O(N): Requirement to return the positions, hence need to store the positions after sorting.
 Otherwise, only O(1) space required.
 */
 #include <bits/stdc++.h>

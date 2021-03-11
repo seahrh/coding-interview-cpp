@@ -26,29 +26,27 @@ using namespace std;
 
 optional<tuple<int, int>> solve(int n, int x, vector<int> ar)
 {
-    vector<tuple<int, int>> sorted(n);
-    int a, b;
+    vector<tuple<int, int>> sar(n);
     for (int i = 0; i < n; i++)
     {
         // Positions are one-indexed!
-        sorted[i] = make_tuple(ar[i], i + 1);
+        sar[i] = make_tuple(ar[i], i + 1);
     }
-    sort(sorted.begin(), sorted.end());
-    int i = 0, j = n - 1;
+    sort(sar.begin(), sar.end());
+    int i = 0, j = n - 1, _sum;
     while (i < j)
     {
-        a = get<0>(sorted[i]);
-        b = get<0>(sorted[j]);
-        if (a + b == x)
+        _sum = get<0>(sar[i]) + get<0>(sar[j]);
+        if (_sum == x)
         {
-            return make_tuple(get<1>(sorted[i]), get<1>(sorted[j]));
+            return make_tuple(get<1>(sar[i]), get<1>(sar[j]));
         }
-        if (a + b > x)
+        if (_sum < x)
         {
-            j--;
+            i++;
             continue;
         }
-        i++;
+        j--;
     }
     return {};
 }

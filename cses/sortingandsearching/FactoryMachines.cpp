@@ -9,7 +9,7 @@ ll solve(ll n, ll t, vector<ll> ks)
     ll mid, _sum;
     while (lo <= hi)
     {
-        mid = (lo + hi) / 2;
+        mid = lo + (hi - lo) / 2;
         _sum = 0;
         for (ll k : ks)
         {

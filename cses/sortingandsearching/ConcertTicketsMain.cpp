@@ -31,16 +31,14 @@ Time O((N + M) lg N)
 Space O(N): store the ticket prices in a SortedSet.
 */
 #include <bits/stdc++.h>
-#define lli long long int
-#define li long int
-#define ld long double
+#define ll long long
 using namespace std;
 
-vector<lli> solve(vector<lli> tickets, vector<lli> customers)
+vector<ll> solve(vector<ll> tickets, vector<ll> customers)
 {
-    vector<lli> res;
+    vector<ll> res;
     // sort price in descending order!
-    multiset<lli, greater<int>> sortedTickets;
+    multiset<ll, greater<int>> sortedTickets;
     for (auto t = begin(tickets); t != end(tickets); ++t)
     {
         sortedTickets.insert(*t);
@@ -65,10 +63,10 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    lli n, m, customer, ticket;
+    ll n, m, customer, ticket;
     cin >> n >> m;
-    vector<lli> tickets;
-    vector<lli> customers;
+    vector<ll> tickets;
+    vector<ll> customers;
     while (n--)
     {
         cin >> ticket;
@@ -79,7 +77,7 @@ int main()
         cin >> customer;
         customers.push_back(customer);
     }
-    vector<lli> res = solve(tickets, customers);
+    vector<ll> res = solve(tickets, customers);
     for (auto r = begin(res); r != end(res); ++r)
     {
         cout << *r << endl;

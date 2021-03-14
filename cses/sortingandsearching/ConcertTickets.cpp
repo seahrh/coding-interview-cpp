@@ -1,10 +1,10 @@
-#include "cses/sortingandsearching/ConcertTickets.hpp"
+#include "cses/sortingandsearching/package.hpp"
 
-vector<lli> solve(vector<lli> tickets, vector<lli> customers)
+vector<ll> concert_tickets(vector<ll> tickets, vector<ll> customers)
 {
-    vector<lli> res;
+    vector<ll> res;
     // sort price in descending order!
-    multiset<lli, greater<int>> sortedTickets;
+    multiset<ll, greater<int>> sortedTickets;
     for (auto t = begin(tickets); t != end(tickets); ++t)
     {
         sortedTickets.insert(*t);

@@ -1,6 +1,6 @@
-#include "cses/sortingandsearching/FactoryMachines.hpp"
+#include "cses/sortingandsearching/package.hpp"
 
-ll solve(ll n, ll t, vector<ll> ks)
+ll factory_machines(ll n, ll t, vector<ll> ks)
 {
     ll k_max = *max_element(ks.begin(), ks.end());
     ll lo = 1;

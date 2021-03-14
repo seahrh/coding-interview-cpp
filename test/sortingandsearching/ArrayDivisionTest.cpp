@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "cses/sortingandsearching/ArrayDivision.hpp"
+#include "cses/sortingandsearching/package.hpp"
 
 TEST(ArrayDivision, Test16)
 {

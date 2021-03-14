@@ -1,11 +1,11 @@
-#include "cses/sortingandsearching/MovieFestival.hpp"
+#include "cses/sortingandsearching/package.hpp"
 
 bool second_ordering(const tuple<int, int> &left, const tuple<int, int> &right)
 {
     return (get<1>(left) < get<1>(right));
 }
 
-int solve(int n, vector<tuple<int, int>> movies)
+int movie_festival(int n, vector<tuple<int, int>> movies)
 {
     int res = 0;
     sort(movies.begin(), movies.end(), second_ordering);

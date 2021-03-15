@@ -26,23 +26,25 @@ Space O(N): depth of recursive call stack
 #define ll long long
 using namespace std;
 
-ll _solve(int n, vector<ll> ps, int index, ll first_sum, ll second_sum, ll best)
+void _solve(int n, vector<ll> ps, int index, ll first_sum, ll second_sum, ll &best)
 {
     // Backtracking function must return the best value
     // because the `best` argument is an immutable integer (hence pass by value)
     if (index == n)
     {
-        return min(best, abs(first_sum - second_sum));
+        best = min(best, abs(first_sum - second_sum));
+        return;
     }
     // compare best scores from the left and right subtrees of the recursion tree
-    ll res = _solve(n, ps, index + 1, first_sum + ps[index], second_sum, best);
-    res = _solve(n, ps, index + 1, first_sum, second_sum + ps[index], res);
-    return res;
+    _solve(n, ps, index + 1, first_sum + ps[index], second_sum, best);
+    _solve(n, ps, index + 1, first_sum, second_sum + ps[index], best);
 }
 
 ll solve(int n, vector<ll> ps)
 {
-    return _solve(n, ps, 0, 0, 0, 1e9);
+    ll best = 1e9;
+    _solve(n, ps, 0, 0, 0, best);
+    return best;
 }
 
 int main()

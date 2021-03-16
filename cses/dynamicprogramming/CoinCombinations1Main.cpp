@@ -28,7 +28,7 @@ Output:
 SOLUTION
 Loop over the possibilities for last coin added (all coins up to current target).
 There are dp[x-v] ways to make x, when adding a coin with value v **last**.
-Time O(X)
+Time O(NX)
 Space O(X): memo array
 */
 #include <bits/stdc++.h>

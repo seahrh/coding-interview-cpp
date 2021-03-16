@@ -22,7 +22,7 @@ We look at the last coin added to get sum x, say it has value v.
 We need dp[x-v] coins to get value x-v, and 1 coin for value v.
 Therefore we need dp[x-v]+1 coins if we are to use a coin with value v.
 Time O(X)
-Space O(X): store dp array
+Space O(X): memo array
 See https://codeforces.com/blog/entry/70018
 */
 #include <bits/stdc++.h>

@@ -25,6 +25,8 @@ Base case: empty set to make sum 0, dp[0][0] = 1
 The rest of the first row, dp[0][j] = 0
 Recurring relation: dp[i][j] = dp[i - 1][j] + dp[i - 1][j - i]
 Either take the ith number or not.
+Time O(N^3)
+Space O(N^3): memo table
 See https://codeforces.com/blog/entry/70018
 */
 #include <bits/stdc++.h>

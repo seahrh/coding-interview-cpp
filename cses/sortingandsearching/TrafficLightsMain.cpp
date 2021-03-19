@@ -21,7 +21,7 @@ Output:
 SOLUTION
 Suppose a traffic light is placed in the middle of a segment of length 30.
 Then delete '30' and insert two '15's.
-Time O(N lg N)
+Time O(N lg N): Binary search in a loop
 Space O(N)
 */
 #include <bits/stdc++.h>
@@ -29,19 +29,18 @@ using namespace std;
 
 vector<int> solve(int x, int n, vector<int> ps)
 {
-    int left, right, p;
     // ensure there will always be a left and right
     set<int> positions = {0, x};
     multiset<int> lengths = {x};
     vector<int> res(n);
     for (int i = 0; i < n; i++)
     {
-        p = ps[i];
+        int p = ps[i];
         // find the position to insert the current point
         auto it = positions.upper_bound(p);
         // [left, right] : the range in which the point is being inserted
-        left = *prev(it);
-        right = *it;
+        int left = *prev(it);
+        int right = *it;
         // remove that range from lengths, then add new
         lengths.erase(lengths.find(right - left));
         lengths.insert(p - left);

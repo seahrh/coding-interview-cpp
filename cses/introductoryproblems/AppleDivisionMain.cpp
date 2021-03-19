@@ -17,9 +17,8 @@ Output:
 1
 Explanation: Group 1 has weights 2, 3 and 4 (total weight 9), and group 2 has weights 1 and 7 (total weight 8).
 SOLUTION
-Membership of the best groups do not follow a sorted ordering, so sorting doesn't help.
-Backtracking brute force without pruning; either add current apple to first group or not.
-Time O(2^N)
+Backtracking without pruning; generate all possible subsets to compare sums.
+Time O(2^N): either add current apple to first group or not.
 Space O(N): depth of recursive call stack
 */
 #include <bits/stdc++.h>
@@ -28,8 +27,6 @@ using namespace std;
 
 void _solve(int n, vector<ll> ps, int index, ll first_sum, ll second_sum, ll &best)
 {
-    // Backtracking function must return the best value
-    // because the `best` argument is an immutable integer (hence pass by value)
     if (index == n)
     {
         best = min(best, abs(first_sum - second_sum));
@@ -42,7 +39,7 @@ void _solve(int n, vector<ll> ps, int index, ll first_sum, ll second_sum, ll &be
 
 ll solve(int n, vector<ll> ps)
 {
-    ll best = 1e9;
+    ll best = LLONG_MAX;
     _solve(n, ps, 0, 0, 0, best);
     return best;
 }

@@ -21,7 +21,7 @@ SOLUTION
 We look at the last coin added to get sum x, say it has value v.
 We need dp[x-v] coins to get value x-v, and 1 coin for value v.
 Therefore we need dp[x-v]+1 coins if we are to use a coin with value v.
-Time O(X)
+Time O(X lg N): binary search coins in the loop
 Space O(X): memo array
 See https://codeforces.com/blog/entry/70018
 */
@@ -31,7 +31,7 @@ using namespace std;
 int solve(int n, int x, vector<int> cs)
 {
     sort(cs.begin(), cs.end());
-    int hi, best, impossible = x + 1;
+    int impossible = x + 1;
     vector<int> dp(x + 1, impossible);
     // fill up the dp array with single coin counts
     for (int c : cs)
@@ -42,17 +42,17 @@ int solve(int n, int x, vector<int> cs)
         }
         dp[c] = 1;
     }
-    for (int i = cs[0] + 1; i < x + 1; i++)
+    for (int i = cs[0] + 1; i <= x; i++)
     {
         if (dp[i] != impossible)
         {
             continue;
         }
-        best = impossible;
+        int best = impossible;
         // get all coins equal to or less than current target
         // prevent IndexOutOfBounds when looking up dp array to the left
         auto it = upper_bound(cs.begin(), cs.end(), i);
-        hi = distance(cs.begin(), it);
+        int hi = distance(cs.begin(), it);
         for (int j = 0; j < hi; j++)
         {
             best = min(best, dp[i - cs[j]] + 1);

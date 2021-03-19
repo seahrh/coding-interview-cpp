@@ -22,7 +22,7 @@ Explanation: Machine 1 makes two products, machine 2 makes four products and mac
 SOLUTION
 Observe that it's optimal for every machine to work simultaneously.
 Then, in `res` time, machine i can create (res / ki) products.
-Binary search on solution space i.e. time range [1, t * k_max].
+Binary search on solution space bounded by [1, t * k_max].
 Time O(N lg T)
 Space O(1)
 

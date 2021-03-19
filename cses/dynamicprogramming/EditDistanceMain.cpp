@@ -22,7 +22,13 @@ Output:
 SOLUTION
 dp[i][j] = min number of moves to change a[:i+1] to b[:j+1]
 Base case: dp[0][0] = 0;
-
+Recurring relation:
+- Delete char, dp[i][j] = min(dp[i][j], dp[i - 1][j] + 1);
+- Add char, dp[i][j] = min(dp[i][j], dp[i][j - 1] + 1);
+- Both chars are equal, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1]);
+- Replace char, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + 1);
+Time O(NM)
+Space O(NM)
 */
 #include <bits/stdc++.h>
 using namespace std;

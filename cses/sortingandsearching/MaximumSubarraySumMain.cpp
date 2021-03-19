@@ -28,7 +28,6 @@ using namespace std;
 
 ll solve(int n, vector<int> ar)
 {
-    // cannot init sum as zero because input has negative numbers!
     // cannot init sum as first element because it can be a negative number!
     ll res = LLONG_MIN, curr = 0;
     for (int i = 0; i < n; i++)

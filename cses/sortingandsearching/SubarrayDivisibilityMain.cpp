@@ -18,14 +18,11 @@ SOLUTION
 Do a prefix sum from left to right.
 There exists a subarray divisible by N if the same remainder is encountered twice or more
 (i.e. completed one full cycle of N)
-Triangular number: #distinct pairs that can be selected from (N+1) objects
-i.e. "N plus one choose two"
-How pairs of subarrays can be combined to form a longer subarray
+N choose 2: how pairs of subarrays can be combined to form a longer subarray
+NC2 = N! / (R! * (N - R)!) = N(N - 1)/2
 Time O(N)
 Space O(N): store the counts of remainders
-See
-- https://www.geeksforgeeks.org/count-sub-arrays-sum-divisible-k/
-- https://en.wikipedia.org/wiki/Triangular_number
+See https://www.geeksforgeeks.org/count-sub-arrays-sum-divisible-k/
 */
 #include <bits/stdc++.h>
 #define ll long long
@@ -46,8 +43,7 @@ ll solve(int n, vector<ll> ar)
     {
         if (c > 1)
         {
-            // Triangular number given by the formula N(N + 1) / 2
-            // where N is (C-1) because the first prefix subarray is not included.
+            // N choose 2
             res += (ll) c * (c - 1) / 2;
         }
     }

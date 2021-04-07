@@ -1,22 +1,4 @@
-/*
-There are 88418 paths in a 7×7 grid from the upper-left square to the lower-left square.
-Each path corresponds to a 48-character description consisting of characters D (down), U (up), L (left) and R (right).
-For example, the path corresponds to the description DRURRRRRDDDLUULDDDLDRRURDDLLLLLURULURRUULDLLDDDD.
-You are given a description of a path which may also contain characters ? (any direction).
-Your task is to calculate the number of paths that match the description.
-Input
-The only input line has a 48-character string of characters ?, D, U, L and R.
-Output
-Print one integer: the total number of paths.
-Example
-Input:
-??????R??????U??????????????????????????LD????D?
-Output:
-201
-SOLUTION
-*/
-#include <bits/stdc++.h>
-using namespace std;
+#include "cses/introductoryproblems/package.hpp"
 
 bool is_valid(int i, int j, vector<vector<bool>> &visited)
 {
@@ -78,20 +60,10 @@ void _solve(int i, int j, vector<vector<bool>> &visited, string &path, int steps
     visited[i][j] = false;
 }
 
-int solve(string s)
+int grid_paths(string s)
 {
     int res = 0;
     vector<vector<bool>> visited(7, vector<bool>(7));
     _solve(0, 0, visited, s, 0, res);
     return res;
-}
-
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    string s;
-    cin >> s;
-    cout << solve(s);
-    return 0;
 }

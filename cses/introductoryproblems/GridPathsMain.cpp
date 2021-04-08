@@ -14,7 +14,14 @@ Input:
 Output:
 201
 SOLUTION
+Backtracking. Prune the state space tree:
+- If a path arrives at the destination cell prematurely, then it cannot be a solution.
+- If a path can move in only two opposite directions (left or right; up or down), 
+  then there must be unvisited cells in the other branch that was not traversed. 
+Time O(2^(N^2))
+Space O(N^2): 2d vector to mark visited cells 
 */
+// TODO failed test cases 12,13,14,20 TLE
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,9 +38,11 @@ void _solve(int i, int j, vector<vector<bool>> &visited, string &path, int steps
         {
             ++result;
         }
-        // Incomplete path has visited destination cell; abandon search at this point
+        // If a path arrives at the destination cell prematurely, then it cannot be a solution.
         return;
     }
+    // If a path can move in only two opposite directions (left or right; up or down),
+    // then there must be unvisited cells in the other branch that was not traversed.
     if (((i == 0 || i == 6 || (!is_valid(i - 1, j, visited) && !is_valid(i + 1, j, visited))) && is_valid(i, j - 1, visited) && is_valid(i, j + 1, visited)) ||
         ((j == 0 || j == 6 || (!is_valid(i, j - 1, visited) && !is_valid(i, j + 1, visited))) && is_valid(i - 1, j, visited) && is_valid(i + 1, j, visited)))
     {

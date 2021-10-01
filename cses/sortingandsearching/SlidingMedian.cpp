@@ -57,19 +57,11 @@ vector<ll> sliding_median(ll n, ll k, vector<ll> xs)
     multiset<ll> lo;
     for (ll i = 0; i < n; i++)
     {
-        cout << "x=" << xs[i] << endl;
-        cout << "up=";
-        for (auto r = begin(up); r != end(up); ++r)
+        if (k == 1)
         {
-            cout << *r << " ";
+            res.push_back(xs[i]);
+            continue;
         }
-        cout << endl;
-        cout << "lo=";
-        for (auto r = begin(lo); r != end(lo); ++r)
-        {
-            cout << *r << " ";
-        }
-        cout << endl;
         add(xs[i], up, lo);
         if ((ll)up.size() + (ll)lo.size() == k)
         {

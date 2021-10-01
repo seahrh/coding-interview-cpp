@@ -4,11 +4,18 @@
 using ::testing::ElementsAre;
 using ::testing::IsEmpty;
 
-TEST(SlidingMedian, ExampleTest01)
+TEST(SlidingMedian, Example01)
 {
     ll n = 8, k = 3;
     vector<ll> xs = {2, 4, 3, 5, 8, 1, 2, 1};
     EXPECT_THAT(sliding_median(n, k, xs), ElementsAre(3, 4, 5, 5, 2, 1));
+}
+
+TEST(SlidingMedian, Test01)
+{
+    ll n = 10, k = 1;
+    vector<ll> xs = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    EXPECT_THAT(sliding_median(n, k, xs), ElementsAre(1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
 }
 
 TEST(SlidingMedian, Test25)

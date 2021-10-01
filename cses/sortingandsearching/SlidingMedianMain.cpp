@@ -18,7 +18,8 @@ Input:
 Output:
 3 4 5 5 2 1
 SOLUTION
-Time O(N lg N)
+Time O(N lg K)
+Space O(K)
 Middle of two heaps
 Invariants
 - Upper heap must be smaller than or equal to lower heap
@@ -87,6 +88,11 @@ vector<ll> sliding_median(ll n, ll k, vector<ll> xs)
 	multiset<ll> lo;
 	for (ll i = 0; i < n; i++)
 	{
+		if (k == 1)
+        {
+            res.push_back(xs[i]);
+            continue;
+        }
 		add(xs[i], up, lo);
 		if ((ll)up.size() + (ll)lo.size() == k)
 		{

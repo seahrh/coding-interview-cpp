@@ -27,7 +27,7 @@ using namespace std;
 void _solve(int n, string &partial, vector<string> &result)
 {
     // partial must be passed by reference to maintain gray-code order!
-    // partial is passed from one recursion subtree to the next.
+    // partial is passed from left recursion subtree to the right.
     if (n == 0)
     {
         result.push_back(partial);

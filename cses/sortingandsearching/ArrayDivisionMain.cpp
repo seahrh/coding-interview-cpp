@@ -43,7 +43,9 @@ ll solve(ll n, ll k, vector<ll> xs)
     while (lo <= hi)
     {
         mid = lo + (hi - lo) / 2;
+        // j is the number of subarrays that have sum <= mid
         j = 0;
+        // sum of the current subarray
         _sum = 0;
         for (ll x : xs)
         {

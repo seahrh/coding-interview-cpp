@@ -45,8 +45,7 @@ vector<ll> solve(vector<ll> tickets, vector<ll> customers)
     }
     for (auto c = begin(customers); c != end(customers); ++c)
     {
-        // get first ticket that equals budget
-        // else get next ticket that is below budget
+        // get first ticket that costs <= budget
         auto t = sortedTickets.lower_bound(*c);
         if (t == sortedTickets.end())
         {

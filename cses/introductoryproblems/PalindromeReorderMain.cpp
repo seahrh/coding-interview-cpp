@@ -47,6 +47,7 @@ optional<string> solve(string s)
     reverse(right.begin(), right.end());
     if (odd.begin() != odd.end())
     {
+        // at most one char! The rest has been added to `left`.
         mid = *odd.begin();
     }
     return left + mid + right;

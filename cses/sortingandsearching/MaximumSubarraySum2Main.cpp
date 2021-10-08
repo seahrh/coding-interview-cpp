@@ -20,10 +20,10 @@ Let p[i] denote the sum of the first i elements. Each subarray sum can be repres
 The question says to maximise it over all values i,j such that a <= j - i <= b,
 since j - i is the number of elements in the subarray.
 Iterate j from a to n. We want to maximize p[j] - p[i], therefore we want to minimize p[i].
-i can be in the range from (j - a) to (j - b).
+**i can be in the range from (j - b) to (j - a).
 Since we need to add and remove only one value, use a multiset to maintain the min value
 in the range by adding p[j - a] and removing p[j - b] in each iteration.
-Time O(N)
+Time O(N lg N)
 Space O(N)
 See https://discuss.codechef.com/t/help-with-maximum-subarray-sum-ii-from-cses/73404
 */
@@ -33,7 +33,8 @@ using namespace std;
 
 ll solve(int n, int a, int b, vector<ll> xs)
 {
-    // length is n+1 because first item represents empty subarray!
+    // prefix sum array
+    // length is n+1 because ps[0] represents empty subarray!
     vector<ll> ps(n + 1);
     ps[0] = 0;
     for (int i = 1; i <= n; i++)

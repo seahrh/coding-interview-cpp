@@ -14,17 +14,18 @@ pp
 Output:
 2
 SOLUTION
+Searching for string s (length m) in string t (length n). 
 KMP algorithm prefix function build `pi` array:
 Time O(N + M)
 Space O(N + M)
-We generate the string p + \\# + s, where \\# is a separator that appears neither in p nor in s.
-Now think about the meaning of the values of the prefix function,
-except for the first n+1 entries (which belong to the string p and the separator).
-By definition the value pi[i] shows the longest length of a substring ending in position i 
-that coincides with the prefix. 
-But in our case this is nothing more than the largest block that coincides with p and ends at position i.
+The prefix function for this string is defined as an array pi of length n,
+where pi[i] is the length of the longest proper prefix of the substring s[0,i+1] 
+which is also a suffix of this substring. 
+A proper prefix of a string is a prefix that is not equal to the string itself.
+By definition, pi[0]=0.
+We generate the string s + '\\#' + t, where '\\#' is a separator that appears neither in s nor t.
+If equality pi[i]=m is achieved, then it means that s is found (i.e. ends at position i).
 This length cannot be bigger than n due to the separator.
-But if equality pi[i]=m is achieved, then it means that the string p appears completely (i.e. ends at position i).
 References
 - https://cp-algorithms.com/string/prefix-function.html
 - https://www.youtube.com/watch?v=V5-7GzOfADQ
@@ -41,6 +42,8 @@ vector<ll> prefix(string s)
     for (ll i = 1; i < n; i++)
     {
         ll j = pi[i - 1];
+        // prefix is matched except last position i
+        // update length of longest proper prefix
         while (j > 0 && s[i] != s[j])
             j = pi[j - 1];
         if (s[i] == s[j])
@@ -50,14 +53,15 @@ vector<ll> prefix(string s)
     return pi;
 }
 
-ll solve(string s, string p)
+ll solve(string s, string t)
 {
-    string ps = p + "#" + s;
-    vector<ll> pi = prefix(ps);
+    string st = s + "#" + t;
+    vector<ll> pi = prefix(st);
     ll res = 0;
     for (ll i = 0; i < (ll)pi.size(); i++)
     {
-        if (pi[i] == (ll)p.size())
+        // Values in pi array are 1-indexed
+        if (pi[i] == (ll)s.size())
             res++;
     }
     return res;
@@ -67,9 +71,9 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    string s, p;
+    string s, t;
+    cin >> t;
     cin >> s;
-    cin >> p;
-    cout << solve(s, p);
+    cout << solve(s, t);
     return 0;
 }

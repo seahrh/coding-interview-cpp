@@ -31,11 +31,11 @@ If char at position i matches, then dp[i] += dp[i+1]
 #define ll long long
 using namespace std;
 const ll mod = 1e9 + 7;
-vector<vector<ll>> trie(1000005, vector<ll>(26, 0));
-vector<bool> stop(1000005);
+vector<vector<ll>> trie(1'000'001, vector<ll>(26));
+vector<bool> stop(1'000'001);
 vector<ll> dp(5005, 0);
 
-ll add(string s, ll node_index)
+ll add(string s, ll new_node)
 {
     ll node = 0;
     for (ll i = 0; i < (ll)s.size(); i++)
@@ -44,12 +44,12 @@ ll add(string s, ll node_index)
         if (!trie[node][j])
         {
             // create new node
-            trie[node][j] = ++node_index;
+            trie[node][j] = new_node++;
         }
         node = trie[node][j];
     }
     stop[node] = 1;
-    return node_index;
+    return new_node;
 }
 
 ll find(string s, ll head)
@@ -90,12 +90,12 @@ int main()
     cin >> s;
     ll k;
     cin >> k;
-    ll ni = 0;
+    ll node = 1;
     while (k--)
     {
         string x;
         cin >> x;
-        ni = add(x, ni);
+        node = add(x, node);
     }
     cout << solve(s);
     return 0;

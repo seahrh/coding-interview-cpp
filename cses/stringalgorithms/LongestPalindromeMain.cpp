@@ -17,14 +17,31 @@ bab
 #define ll long long
 using namespace std;
 
-ll expand(string s, ll a, ll b)
+string solve(string s)
 {
-    while (a >= 0 && b < (ll)s.size() && s[a] == s[b])
+    ll n = (ll)s.size();
+    vector<ll> dp(n, 1);
+    ll start = 0, len = 1;
+    for (ll i = 0; i < n - 1; i++)
     {
-        a--;
-        b++;
+        if (s[i] == s[i + 1])
+            dp[i]++;
     }
-    return b - a - 1;
+    for (ll i = 0; i < n - 1; i++)
+    {
+        ll j = i + 1 + dp[i + 1];
+        if (j < n && s[i] == s[j])
+            dp[i] += dp[i + 1] + 1;
+    }
+    for (ll i = 0; i < n; i++)
+    {
+        if (dp[i] > len)
+        {
+            len = dp[i];
+            start = i;
+        }
+    }
+    return s.substr(start, len);
 }
 
 int main()
@@ -33,22 +50,6 @@ int main()
     cin.tie(NULL);
     string s;
     cin >> s;
-    ll start = -1, len = 0;
-    for (ll i = 0; i < (ll)s.size(); i++)
-    {
-        ll odd = expand(s, i, i);
-        ll even = expand(s, i, i + 1);
-        if (odd > len)
-        {
-            len = odd;
-            start = i - (odd / 2);
-        }
-        if (even > len)
-        {
-            len = even;
-            start = i - (even / 2 - 1);
-        }
-    }
-    cout << s.substr(start, len);
+    cout << solve(s);
     return 0;
 }

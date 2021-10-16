@@ -22,16 +22,18 @@ string solve(string s)
     ll n = (ll)s.size();
     vector<ll> dp(n, 1);
     ll start = 0, len = 1;
-    for (ll i = 0; i < n - 1; i++)
+    for (ll i = n - 2; i >= 0; i--)
     {
         if (s[i] == s[i + 1])
-            dp[i]++;
+        {
+            dp[i] = dp[i + 1] + 1;
+        }
     }
-    for (ll i = 0; i < n - 1; i++)
+    for (ll i = n - 3; i >= 0; i--)
     {
         ll j = i + 1 + dp[i + 1];
         if (j < n && s[i] == s[j])
-            dp[i] += dp[i + 1] + 1;
+            dp[i] = max(dp[i], dp[i + 1] + 2);
     }
     for (ll i = 0; i < n; i++)
     {

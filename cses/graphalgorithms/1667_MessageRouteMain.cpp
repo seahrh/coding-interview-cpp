@@ -28,6 +28,10 @@ Input:
 Output:
 3
 1 4 5
+SOLUTION
+BFS to find shortest path.
+Time O(N + M)
+Space O(N + M)
 */
 #include <bits/stdc++.h>
 #define ll long long
@@ -41,7 +45,7 @@ void bfs(ll s)
 {
     vis[s] = 1;
     deque<ll> q;
-    q.push_front(s);
+    q.push_back(s);
     while (!q.empty())
     {
         ll curr = q.front();
@@ -52,7 +56,7 @@ void bfs(ll s)
                 continue;
             vis[i] = 1;
             parent[i] = curr;
-            q.push_front(i);
+            q.push_back(i);
         }
     }
 }

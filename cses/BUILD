@@ -1,6 +1,6 @@
 cc_library(
     name="cses",
     hdrs=glob(["**/*.hpp"]),
-    srcs=glob(["**/*.cpp"], exclude=["**/*Main.cpp"]),
+    srcs=glob(["**/*Impl.cpp"], exclude=["**/*Main.cpp"]),
     visibility = ["//visibility:public"],
 )

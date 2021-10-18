@@ -78,13 +78,11 @@ int main()
     }
     for (ll i = 1; i < n + 1; i++)
     {
-        if (!vis[i])
+        // short circuit eval
+        if (!vis[i] && !bfs(i))
         {
-            if (!bfs(i))
-            {
-                cout << "IMPOSSIBLE";
-                return 0;
-            }
+            cout << "IMPOSSIBLE";
+            return 0;
         }
     }
     for (ll i = 1; i < n + 1; i++)

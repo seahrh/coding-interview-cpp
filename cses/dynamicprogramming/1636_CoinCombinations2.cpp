@@ -22,34 +22,34 @@ Output:
 3
 SOLUTION
 Bottom up DP: Memoization table has shape (#coins, target). Fill table row by row.
-dp[i][x] = number of ways to pick coins with sum x, using the first i coins (exploit requirement for sorted order).
+dp[i][x] = #ways to make sum x, using the first i coins (exploit requirement for sorted order).
+Recurring relation: dp[i][x] = dp[i - 1][x] + dp[i][x - c_i]
 Time O(NX)
 Space O(NX)
 */
 #include <bits/stdc++.h>
 using namespace std;
+const int mod = 1e9 + 7;
 
 int solve(int n, int x, vector<int> cs)
 {
-    const int mod = 1e9 + 7;
-    vector<vector<int>> dp(n + 1, vector<int>(x + 1, 0));
+    vector<vector<int>> dp(n + 1, vector<int>(x + 1));
     // base case: empty set of coins with target zero
     // If ith coin reduces current target to zero, then add 1.
     dp[0][0] = 1;
-    int lo;
-    // Prevent IndexOutOfBounds for (i - 1)
-    for (int i = 1; i <= n; i++)
+    // Start from 1st coin at index 1
+    for (int i = 1; i < n + 1; i++)
     {
         // j must start from 0 so 1st column can carry over values from the top 
-        for (int j = 0; j <= x; j++)
+        for (int j = 0; j < x + 1; j++)
         {
             // did not take ith coin (cell above)
             dp[i][j] = dp[i - 1][j];
             // consider ith coin, i starts from 1 so (i - 1) is the ith coin!
-            lo = j - cs[i - 1];
-            if (lo >= 0)
+            int rem = j - cs[i - 1];
+            if (rem >= 0)
             {
-                (dp[i][j] += dp[i][lo]) %= mod;
+                (dp[i][j] += dp[i][rem]) %= mod;
             }
         }
     }

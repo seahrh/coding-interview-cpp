@@ -19,15 +19,20 @@ Input:
 Output:
 4
 SOLUTION
-dp[i] = **smallest ending value** of an increasing subsequence of length i+1,
+dp[i] = smallest ending value of an increasing subsequence of length i+1,
 using the elements considered so far.
-dp is a sorted array, so exploit binary search to find index where item should be inserted.
-The final answer is the length of the dp array after considering all elements.
+dp is a sorted array, so use binary search to find index where item should be inserted.
+Final answer is the length of the dp array after considering all elements.
+
 In this task we were asked to find the longest strictly increasing subsequence.
-To find the longest increasing subsequence where we allow consecutive equal values, change lower_bound to upper_bound.
-See https://codeforces.com/blog/entry/70018
+To find the longest increasing subsequence where we allow consecutive equal values, 
+change lower_bound to upper_bound.
+
 Time O(N lg N): binary search in the loop
 Space O(N)
+
+References
+- https://codeforces.com/blog/entry/70018
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -44,12 +49,11 @@ int solve(int n, vector<int> xs)
         }
         else
         {
-            // same as *it = xs[i];
             int j = distance(dp.begin(), it);
             dp[j] = xs[i];
         }
     }
-    return dp.size();
+    return (int)dp.size();
 }
 
 int main()

@@ -23,8 +23,9 @@ Explanation: You can buy books 1 and 3. Their price is 4+5=9 and the number of p
 SOLUTION
 0/1 Knapsack problem
 Bottom-up DP (tabulation) works only if weights and capacity are positive integers.
-dp[i][j] = maximum number of pages for considering only the first i books and budget j.
-dp[i][j] = max(did not take current item, take current item)
+dp[i][j] = max #pages using only first i books and budget j.
+Recurring relation: dp[i][j] = max(not take ith item, take ith item)
+Base case: dp[0][0] = 0
 Time O(NB)
 Space O(NB)
 
@@ -35,19 +36,19 @@ using namespace std;
 
 int solve(int n, int x, vector<int> prices, vector<int> pages)
 {
-    vector<vector<int>> dp(n + 1, vector<int>(x + 1, 0));
-    int take, not_take, remainder;
+    vector<vector<int>> dp(n + 1, vector<int>(x + 1));
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= x; j++)
         {
-            take = 0;
-            remainder = j - prices[i - 1];
+            int take = 0;
+            // i is 1-indexed so (i-1) is actually the ith book!
+            int remainder = j - prices[i - 1];
             if (remainder >= 0)
             {
                 take = dp[i - 1][remainder] + pages[i - 1];
             }
-            not_take = dp[i - 1][j];
+            int not_take = dp[i - 1][j];
             dp[i][j] = max(take, not_take);
         }
     }

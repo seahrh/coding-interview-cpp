@@ -20,9 +20,8 @@ Output:
 Explanation: The arrays [2,1,2], [2,2,2] and [2,3,2] match the description.
 SOLUTION
 Bottom-up DP, fill memo table row-wise.
-dp[i][j] = number of ways to generate the required array by considering the first i items
-and some upper bound j.
-Recurrence relation: dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j] + dp[i - 1][j + 1]
+dp[i][j] = #ways to generate the array, using only first i items and some upper bound j.
+Recurrence: dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j] + dp[i - 1][j + 1]
 Why top 3 cells? The difference between two adjacent values is at most 1.
 Answer: sum the last row i.e. all possible ways for all N items
 Time O(NM)
@@ -30,24 +29,22 @@ Space O(NM)
 */
 #include <bits/stdc++.h>
 using namespace std;
+const int mod = 1e9 + 7;
 
 int solve(int n, int m, vector<int> ar)
 {
-    const int mod = 1e9 + 7;
-    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-    // base case: array has only one item
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1));
+    // Base case: array has only one item
     // If first item is zero, then it matches for all M.
-    for (int j = 1; j <= m; j++)
+    for (int j = 1; j < m + 1; j++)
     {
         if (ar[0] == 0 || ar[0] == j)
-        {
             dp[1][j] = 1;
-        }
     }
-    // so start from the 2nd item onwards
-    for (int i = 2; i <= n; i++)
+    // so loop starts from 2nd item
+    for (int i = 2; i < n + 1; i++)
     {
-        for (int j = 1; j <= m; j++)
+        for (int j = 1; j < m + 1; j++)
         {
             if (ar[i - 1] == 0 || ar[i - 1] == j)
             {

@@ -14,8 +14,8 @@ Output:
 5
 Explanation: An optimal solution is 27→20→18→10→9→0.
 SOLUTION
+For each digit in the decimal representation of x, we can try to remove it.
 dp[x] = minimum number of operations to go from x to zero.
-When considering a number x, for each digit in the decimal representation of x, we can try to remove it.
 Recurring relation: dp[x] = min of dp[x-d] for each digit d of x
 Time O(N)
 Space O(N)
@@ -26,14 +26,17 @@ using namespace std;
 int solve(int n)
 {
     vector<int> dp(n + 1, n);
+    // Base case: x is already zero
     dp[0] = 0;
-    int remainder, digit;
-    for (int i = 1; i <= n; i++) {
-        remainder = i;
+    for (int i = 1; i <= n; i++)
+    {
+        int remainder = i;
         // Time O(1) because max 7 digits
-        while (remainder != 0) {
-            digit = remainder % 10;
-            if (remainder - digit >= 0) {
+        while (remainder != 0)
+        {
+            int digit = remainder % 10;
+            if (remainder - digit >= 0)
+            {
                 dp[i] = min(dp[i], dp[i - digit] + 1);
             }
             // remove the last digit
@@ -52,4 +55,3 @@ int main()
     cout << solve(n);
     return 0;
 }
-

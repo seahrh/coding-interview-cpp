@@ -33,7 +33,7 @@ int solve(int n, int x, vector<int> cs)
     sort(cs.begin(), cs.end());
     int impossible = x + 1;
     vector<int> dp(x + 1, impossible);
-    // fill up the dp array with single coin counts
+    // single coin counts
     for (int c : cs)
     {
         if (c > x)
@@ -42,15 +42,14 @@ int solve(int n, int x, vector<int> cs)
         }
         dp[c] = 1;
     }
+    // start looping target after 1st coin
     for (int i = cs[0] + 1; i <= x; i++)
     {
         if (dp[i] != impossible)
-        {
             continue;
-        }
         int best = impossible;
-        // get all coins equal to or less than current target
-        // prevent IndexOutOfBounds when looking up dp array to the left
+        // consider all coins <= current target
+        // prevent IndexOutOfBounds when looking up dp array to the left!
         auto it = upper_bound(cs.begin(), cs.end(), i);
         int hi = distance(cs.begin(), it);
         for (int j = 0; j < hi; j++)

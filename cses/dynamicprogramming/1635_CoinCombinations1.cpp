@@ -26,34 +26,36 @@ Input:
 Output:
 8
 SOLUTION
-Loop over the possibilities for last coin added (all coins up to current target).
+dp[i] = number of ways to make sum i 
+Loop over the possibilities for last coin added (all coins <= current target).
 There are dp[x-v] ways to make x, when adding a coin with value v **last**.
-Time O(NX)
+Time O(N lg N + X lg N)
 Space O(X): memo array
 */
 #include <bits/stdc++.h>
 using namespace std;
+const int mod = 1e9 + 7;
 
 int solve(int n, int x, vector<int> cs)
 {
-    const int mod = 1e9 + 7;
     sort(cs.begin(), cs.end());
-    vector<int> dp(x + 1, 0);
+    vector<int> dp(x + 1);
     // Base case: all the coins that equals target
-    auto it = upper_bound(cs.begin(), cs.end(), x);
-    int hi = distance(cs.begin(), it);
-    for (int i = 0; i < hi; i++)
+    for (int i = 0; i < n; i++)
     {
+        if (cs[i] > x)
+            break;
         dp[cs[i]] = 1;
     }
+    // start loop after 1st coin
     for (int i = cs[0] + 1; i < x + 1; i++)
     {
-        it = upper_bound(cs.begin(), cs.end(), i);
-        hi = distance(cs.begin(), it);
+        // get all coins <= current target
+        auto it = upper_bound(cs.begin(), cs.end(), i);
+        int hi = distance(cs.begin(), it);
         for (int j = 0; j < hi; j++)
         {
-            dp[i] += dp[i - cs[j]];
-            dp[i] %= mod;
+            (dp[i] += dp[i - cs[j]]) %= mod;
         }
     }
     return dp[x];

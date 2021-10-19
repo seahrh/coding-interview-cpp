@@ -29,7 +29,7 @@ const int mod = 1e9 + 7;
 
 int solve(int n)
 {
-    vector<int> dp(n + 1, 0);
+    vector<int> dp(n + 1);
     // required to initialize f(1) through f(6); single die roll
     dp[0] = 1;
     for (int i = 1; i < n + 1; i++)
@@ -39,8 +39,7 @@ int solve(int n)
             // Prevent ArrayIndexOutOfBounds
             if (i - j >= 0)
             {
-                dp[i] += dp[i - j];
-                dp[i] %= mod;
+                (dp[i] += dp[i - j]) %= mod;
             }
         }
     }

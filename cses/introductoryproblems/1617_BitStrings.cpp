@@ -23,13 +23,15 @@ Space O(1)
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
+const ll mod = 1e9 + 7;
 
 ll solve(ll n)
 {
-    const ll mod = 1e9 + 7;
+    // There is only one bit string of length 1
     ll res = 2;
-    for (int i = 2; i <= n; i++) {
-        res = (res * 2) % mod;
+    for (int i = 2; i < n + 1; i++)
+    {
+        (res *= 2) %= mod;
     }
     return res;
 }

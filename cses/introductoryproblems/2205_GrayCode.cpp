@@ -1,5 +1,6 @@
 /*
-A Gray code is a list of all 2n bit strings of length n, where any two successive strings differ in exactly one bit (i.e., their Hamming distance is one).
+A Gray code is a list of all 2n bit strings of length n, 
+where any two successive strings differ in exactly one bit (i.e., their Hamming distance is one).
 Your task is to create a Gray code for a given length n.
 Input
 The only input line has an integer n.
@@ -24,10 +25,12 @@ See https://leetcode.com/problems/gray-code/discuss/29880/Backtracking-C%2B%2B-s
 #include <bits/stdc++.h>
 using namespace std;
 
+// n is which bit to flip
 void _solve(int n, string &partial, vector<string> &result)
 {
     // partial must be passed by reference to maintain gray-code order!
     // partial is passed from left recursion subtree to the right.
+    // Base case: no more bit flipping
     if (n == 0)
     {
         result.push_back(partial);
@@ -35,14 +38,13 @@ void _solve(int n, string &partial, vector<string> &result)
     }
     _solve(n - 1, partial, result);
     // flip it
-    char c = partial.at(n - 1);
-    if (c == '0')
+    if (partial[n - 1] == '0')
     {
-        partial.at(n - 1) = '1';
+        partial[n - 1] = '1';
     }
     else
     {
-        partial.at(n - 1) = '0';
+        partial[n - 1] = '0';
     }
     _solve(n - 1, partial, result);
 }

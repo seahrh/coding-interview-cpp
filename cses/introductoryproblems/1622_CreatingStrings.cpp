@@ -42,20 +42,19 @@ using namespace std;
 
 void _solve(string remainder, set<string> &result)
 {
-    // Base case
-    if (remainder.length() == 1)
+    // Base case: string of length 1
+    if ((int)remainder.size() == 1)
     {
         result.insert(remainder);
         return;
     }
-    char head = remainder.at(0);
+    char head = remainder[0];
     set<string> partials;
     _solve(remainder.substr(1), partials);
-    for (string p : partials)
+    for (auto p : partials)
     {
         // add head to the back of the string too!
-        int lim = (int)p.size() + 1;
-        for (int i = 0; i < lim; i++)
+        for (int i = 0; i < (int)p.size() + 1; i++)
         {
             result.insert(p.substr(0, i) + head + p.substr(i));
         }
@@ -76,11 +75,10 @@ int main()
     string s;
     cin >> s;
     set<string> res = solve(s);
-    int k = (int)res.size();
-    cout << k << "\n";
-    for (string r : res)
+    cout << res.size() << endl;
+    for (auto r : res)
     {
-        cout << r << "\n";
+        cout << r << endl;
     }
     return 0;
 }

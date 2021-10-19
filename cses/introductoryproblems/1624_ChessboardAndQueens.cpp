@@ -50,6 +50,7 @@ bool is_safe(int ai, int aj, int bi, int bj)
 void _solve(vector<string> &board, vector<tuple<int, int>> partial, int &result)
 {
     int len = (int)board.size();
+    // evaluate candidate placement in row i
     int i = (int)partial.size();
     if (i == len)
     {
@@ -58,7 +59,7 @@ void _solve(vector<string> &board, vector<tuple<int, int>> partial, int &result)
     }
     for (int j = 0; j < len; j++)
     {
-        if (board[i].at(j) == '*')
+        if (board[i][j] == '*')
         {
             continue;
         }
@@ -75,6 +76,7 @@ void _solve(vector<string> &board, vector<tuple<int, int>> partial, int &result)
         {
             continue;
         }
+        // partial is passed by value so it is safe to reference partial
         vector<tuple<int, int>> p = partial;
         p.push_back(make_tuple(i, j));
         _solve(board, p, result);

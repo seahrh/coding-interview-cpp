@@ -48,11 +48,11 @@ char solve(ll k)
         ++len;
         head *= 10;
     }
-    // index of number in this group, index zero is the head
-    // minus 1 because k is 1-indexed.
-    ll q = (k - 1) / len;
+    // i is the number of increments from head
+    // k minus 1 because k is 1-indexed.
+    ll i = (k - 1) / len;
     ll r = (k - 1) % len;
-    return to_string(head + q)[r];
+    return to_string(head + i)[r];
 }
 
 int main()

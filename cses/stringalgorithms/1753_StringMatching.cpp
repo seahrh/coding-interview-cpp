@@ -19,8 +19,8 @@ KMP algorithm prefix function build `pi` array:
 Time O(N + M)
 Space O(N + M)
 The prefix function for this string is defined as an array pi of length n,
-where pi[i] is the length of the longest proper prefix of the substring s[0,i+1] 
-which is also a suffix of this substring. 
+where pi[i] is the length of the longest proper prefix of the substring s[:i+1] 
+which is also a proper suffix of this substring. 
 A proper prefix of a string is a prefix that is not equal to the string itself.
 By definition, pi[0]=0.
 We generate the string s + '\\#' + t, where '\\#' is a separator that appears neither in s nor t.
@@ -42,8 +42,8 @@ vector<ll> prefix(string s)
     for (ll i = 1; i < n; i++)
     {
         ll j = pi[i - 1];
-        // prefix is matched except last position i
-        // update length of longest proper prefix
+        // prefix is matched except last position
+        // pi[j - 1] = length of longest prefix for substr[:j]
         while (j > 0 && s[i] != s[j])
             j = pi[j - 1];
         if (s[i] == s[j])

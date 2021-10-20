@@ -24,6 +24,7 @@ Space O(N): each employee can have at most one boss
 #define ll long long
 using namespace std;
 ll max_size = (ll)2e5;
+// no need to mark visited because traversing from root
 vector<vector<ll>> adj(max_size);
 vector<ll> sb(max_size);
 

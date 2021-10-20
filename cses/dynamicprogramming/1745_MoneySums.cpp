@@ -17,8 +17,8 @@ Output:
 2 4 5 6 7 8 9 11 13
 SOLUTION
 0/1 Knapsack problem
-dp[i][j] = true if it is possible to make sum j using the first i coins, false otherwise.
-Base case: if ith coin == j, then dp[i][j] = true
+dp[i][j] = True if it is possible to make sum j using the first i coins
+Base case: dp[i][0] = True
 Recurring relation: dp[i][j] = dp[i - 1][j] or dp[i - 1][j - ith coin]
 Either take the ith coin or not.
 Time O(N^2X)
@@ -30,28 +30,27 @@ using namespace std;
 vector<int> solve(int n, vector<int> xs)
 {
     sort(xs.begin(), xs.end());
-    int j_max = n * 1000;
-    vector<vector<bool>> dp(n + 1, vector<bool>(j_max + 1, false));
-    dp[0][0] = true;
-    for (int i = 1; i <= n; i++)
+    int _max = n * 1000;
+    vector<vector<bool>> dp(n + 1, vector<bool>(_max + 1));
+    // Base case
+    for (int i = 0; i < n + 1; i++)
+        dp[i][0] = 1;
+    for (int i = 1; i < n + 1; i++)
     {
-        for (int j = 0; j <= j_max; j++)
+        for (int j = 1; j < _max + 1; j++)
         {
             dp[i][j] = dp[i - 1][j];
+            // minus 1 to get the ith coin
             int remainder = j - xs[i - 1];
             if (remainder >= 0 && dp[i - 1][remainder])
-            {
-                dp[i][j] = true;
-            }
+                dp[i][j] = 1;
         }
     }
     vector<int> res;
-    for (int j = 1; j <= j_max; j++)
+    for (int j = 1; j < _max + 1; j++)
     {
         if (dp[n][j])
-        {
             res.push_back(j);
-        }
     }
     return res;
 }

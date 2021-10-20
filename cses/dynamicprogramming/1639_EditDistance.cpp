@@ -12,7 +12,7 @@ The second input line has a string that contains m characters between A–Z.
 Output
 Print one integer: the edit distance between the strings.
 Constraints
-1≤n,m≤5000
+1=n,m=5000
 Example
 Input:
 LOVE
@@ -21,10 +21,12 @@ Output:
 2
 SOLUTION
 dp[i][j] = min number of moves to change a[:i+1] to b[:j+1]
-Base case: dp[0][0] = 0;
-Recurring relation:
+Base case: both strings are empty, or 1 string has length 1
+Recurrence:
 - Delete char, dp[i][j] = min(dp[i][j], dp[i - 1][j] + 1);
+  Moving up (e.g. delete chars one by one from non-empty a to get empty string b)
 - Add char, dp[i][j] = min(dp[i][j], dp[i][j - 1] + 1);
+  Moving right (e.g. add chars to empty string a to get b)
 - Both chars are equal, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1]);
 - Replace char, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + 1);
 Time O(NM)
@@ -37,26 +39,21 @@ int solve(string a, string b)
 {
     int na = (int)a.size();
     int nb = (int)b.size();
-    vector<vector<int>> dp(na+1, vector<int>(nb+1,5000));
+    vector<vector<int>> dp(na + 1, vector<int>(nb + 1, 5000));
+    // Base case
     dp[0][0] = 0;
-    for (int i = 0; i <= na; i++) {
-        for (int j = 0; j <= nb; j++) {
-            // Delete char from a[:i+1], take value from top cell
-            if (i - 1 >= 0) {
-                dp[i][j] = min(dp[i][j], dp[i - 1][j] + 1);
-            }
-            // Add char to a[:i+1], take value from left cell (growing to the right)
-            if (j - 1 >= 0) {
-                dp[i][j] = min(dp[i][j], dp[i][j - 1] + 1);
-            }
-            if (i - 1 >= 0 && j - 1 >= 0) {
-                int tl = dp[i - 1][j - 1];
-                // Replace char
-                if (a.at(i - 1) != b.at(j - 1)) {
-                    tl += 1;
-                }
-                dp[i][j] = min(dp[i][j], tl);
-            }
+    for (int i = 1; i < na + 1; i++)
+        dp[i][0] = i;
+    for (int i = 1; i < nb + 1; i++)
+        dp[0][i] = i;
+    for (int i = 1; i < na + 1; i++)
+    {
+        for (int j = 1; j < nb + 1; j++)
+        {
+            // minus 1 because dp[0] means empty string!
+            int r = (a[i - 1] != b[j - 1]);
+            // min([add, delete, replace])
+            dp[i][j] = min({dp[i][j - 1] + 1, dp[i - 1][j] + 1, dp[i - 1][j - 1] + r});
         }
     }
     return dp[na][nb];

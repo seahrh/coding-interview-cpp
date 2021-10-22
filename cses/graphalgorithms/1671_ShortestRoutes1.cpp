@@ -11,8 +11,8 @@ You can assume that it is possible to travel from Syrjälä to all other cities.
 Output
 Print n integers: the shortest route lengths from Syrjälä to cities 1,2,…,n.
 Constraints
-1≤n≤105
-1≤m≤2⋅105
+1≤n≤10^5
+1≤m≤2⋅10^5
 1≤a,b≤n
 1≤c≤109
 Example
@@ -25,10 +25,11 @@ Input:
 Output:
 0 5 2
 SOLUTION
-Dijkstra Algorithm, Single Source Shortest Path, Greedy Method
+Dijkstra Algorithm: Single Source Shortest Path, Greedy Method
 Time O(E lg V): #edges * maintain heap of nodes
 Space O(V + E): adjacency list
-Dijkstra works on cyclic graphs too, so long as all edge weights are non-negative.
+Dijkstra works on cycles too, so long as all edge weights are non-negative.
+Bellman-Ford can handle negative weights but not negative cycles.
 */
 #include <bits/stdc++.h>
 #define ll long long

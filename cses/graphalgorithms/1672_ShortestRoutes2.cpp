@@ -48,7 +48,6 @@ References
 */
 #include <bits/stdc++.h>
 #define ll long long
-#define tll tuple<long, long>
 using namespace std;
 const ll maxs = 501;
 // LLONG_MAX did not work because of some overflow/underflow issue

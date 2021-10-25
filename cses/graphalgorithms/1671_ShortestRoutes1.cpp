@@ -33,7 +33,7 @@ Bellman-Ford can handle negative weights but not negative cycles.
 */
 #include <bits/stdc++.h>
 #define ll long long
-#define tll tuple<long, long>
+#define tll tuple<ll, ll>
 using namespace std;
 const ll max_size = 2e5 + 1;
 // 2-tuple (to_node, weight)

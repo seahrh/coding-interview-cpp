@@ -26,15 +26,10 @@ using namespace std;
 int solve(int n, vector<int> xs)
 {
     sort(xs.begin(), xs.end());
-    // at least one value
     int res = 1;
     for (int i = 1; i < n; i++)
-    {
         if (xs[i] != xs[i - 1])
-        {
             res++;
-        }
-    }
     return res;
 }
 
@@ -46,9 +41,7 @@ int main()
     cin >> n;
     vector<int> xs(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> xs[i];
-    }
-    cout << solve(n, xs) << endl;
+    cout << solve(n, xs);
     return 0;
 }

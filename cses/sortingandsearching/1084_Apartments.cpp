@@ -23,7 +23,6 @@ Input:
 30 60 75
 Output:
 2
-See https://cses.fi/problemset/task/1084
 SOLUTION
 Time O(N lg N + M lg M)
 Space O(1)
@@ -38,10 +37,9 @@ int solve(vector<int> applicants, vector<int> apartments, int k)
 {
     sort(applicants.begin(), applicants.end());
     sort(apartments.begin(), apartments.end());
-    int res = 0;
-    int i = 0, j = 0;
-    int n = applicants.size();
-    int m = apartments.size();
+    int res = 0, i = 0, j = 0;
+    int n = (int)applicants.size();
+    int m = (int)apartments.size();
     while (i < n && j < m)
     {
         if (abs(applicants[i] - apartments[j]) <= k)
@@ -57,7 +55,7 @@ int solve(vector<int> applicants, vector<int> apartments, int k)
             j++;
             continue;
         }
-        // this apartment and the rest of the apartments are larger than applicant's requirement
+        // this apartment and the rest are larger than applicant's requirement
         // so move on to the next applicant
         i++;
     }

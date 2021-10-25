@@ -26,33 +26,26 @@ Time O(N lg N)
 Space O(N)
 */
 #include <bits/stdc++.h>
+#define tii tuple<int, int>
+#define tib tuple<int, bool>
 using namespace std;
 
-int solve(int n, vector<tuple<int, int>> customers)
+int solve(int n, vector<tii> customers)
 {
     int res, curr = 0;
-    int a, b;
-    bool is_arrival;
-    vector<tuple<int, bool>> timeline;
-    for (int i = 0; i < n; i++)
+    vector<tib> timeline;
+    for (auto [a, b] : customers)
     {
-        a = get<0>(customers[i]);
-        b = get<1>(customers[i]);
-        timeline.push_back(make_tuple(a, true));
-        timeline.push_back(make_tuple(b, false));
+        timeline.push_back({a, 1});
+        timeline.push_back({b, 0});
     }
     sort(timeline.begin(), timeline.end());
-    for (int i = 0; i < n * 2; i++)
+    for (auto [t, arrival] : timeline)
     {
-        is_arrival = get<1>(timeline[i]);
-        if (is_arrival)
-        {
+        if (arrival)
             curr++;
-        }
         else
-        {
             curr--;
-        }
         res = max(curr, res);
     }
     return res;
@@ -64,12 +57,12 @@ int main()
     cin.tie(NULL);
     int n, a, b;
     cin >> n;
-    vector<tuple<int, int>> customers(n);
+    vector<tii> customers(n);
     for (int i = 0; i < n; i++)
     {
         cin >> a >> b;
-        customers[i] = make_tuple(a, b);
+        customers[i] = {a, b};
     }
-    cout << solve(n, customers) << endl;
+    cout << solve(n, customers);
     return 0;
 }

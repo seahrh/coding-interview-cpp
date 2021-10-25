@@ -38,9 +38,7 @@ int solve(int n, int x, vector<int> ps)
     while (i <= j)
     {
         if (ps[i] + ps[j] <= x)
-        {
             i++;
-        }
         j--;
         res++;
     }
@@ -55,9 +53,7 @@ int main()
     cin >> n >> x;
     vector<int> ps(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ps[i];
-    }
     cout << solve(n, x, ps) << endl;
     return 0;
 }

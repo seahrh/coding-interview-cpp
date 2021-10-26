@@ -38,21 +38,18 @@ ll solve(ll n, ll t, vector<ll> ks)
     ll lo = 1;
     ll hi = t * k_max;
     ll res = hi;
-    ll mid, _sum;
     while (lo <= hi)
     {
-        mid = lo + (hi - lo) / 2;
-        _sum = 0;
+        ll mid = lo + (hi - lo) / 2;
+        ll ps = 0;
         for (ll k : ks)
         {
-            _sum += (mid / k);
+            ps += (mid / k);
             // deal with overflow
-            if (_sum >= t)
-            {
+            if (ps >= t)
                 break;
-            }
         }
-        if (_sum >= t)
+        if (ps >= t)
         {
             res = mid;
             hi = mid - 1;
@@ -71,9 +68,7 @@ int main()
     cin >> n >> t;
     vector<ll> ks(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ks[i];
-    }
     cout << solve(n, t, ks);
     return 0;
 }

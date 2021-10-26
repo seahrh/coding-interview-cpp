@@ -35,13 +35,11 @@ int solve(int n, vector<int> ks)
         // find the first "bigger" tower top to place this cube
         auto it = towers.upper_bound(ks[i]);
         if (it != towers.end())
-        {
             towers.erase(it);
-        }
-        // else all tower tops are not bigger; start new tower
+        // put new cube on top
         towers.insert(ks[i]);
     }
-    return towers.size();
+    return (int)towers.size();
 }
 
 int main()
@@ -52,9 +50,7 @@ int main()
     cin >> n;
     vector<int> ks(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ks[i];
-    }
     cout << solve(n, ks);
     return 0;
 }

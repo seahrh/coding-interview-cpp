@@ -15,6 +15,7 @@ Input:
 Output:
 2
 SOLUTION
+Challenge is to handle negative numbers.
 Traverse array from left to right. CURRENT_SUM is the sum of elements from first item to current item.
 If there exists a prefix sum equals (CURRENT_SUM - TARGET),
 then add the number of subarrays containing the prefix sum to the result.
@@ -28,31 +29,23 @@ using namespace std;
 
 ll solve(int n, ll x, vector<ll> ar)
 {
-    ll res = 0, curr = 0, ps;
+    ll res = 0, pre = 0;
     // Map prefix sum to its count of subarrays
-    map<ll, ll> prefix_sums;
+    map<ll, ll> m;
     for (int i = 0; i < n; i++)
     {
-        curr += ar[i];
-        if (curr == x)
-        {
+        pre += ar[i];
+        if (pre == x)
             res++;
-        }
-        ps = curr - x;
-        auto kv = prefix_sums.find(ps);
-        if (kv != prefix_sums.end())
-        {
-            res += kv->second;
-        }
-        kv = prefix_sums.find(curr);
-        if (kv == prefix_sums.end())
-        {
-            prefix_sums.insert({{curr, 1}});
-        }
+        ll rem = pre - x;
+        auto it = m.find(rem);
+        if (it != m.end())
+            res += it->second;
+        it = m.find(pre);
+        if (it == m.end())
+            m.insert({{pre, 1}});
         else
-        {
-            kv->second += 1;
-        }
+            it->second += 1;
     }
     return res;
 }
@@ -66,9 +59,7 @@ int main()
     cin >> n >> x;
     vector<ll> ar(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ar[i];
-    }
     cout << solve(n, x, ar);
     return 0;
 }

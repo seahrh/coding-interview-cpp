@@ -40,18 +40,13 @@ vector<int> solve(int n, vector<int> xs)
     {
         // delete all preceding items that are not smaller than curr
         while (!st.empty() && get<0>(st.back()) >= xs[i])
-        {
             st.pop_back();
-        }
         if (st.empty())
-        {
             res[i] = 0;
-        }
         else
-        {
             res[i] = get<1>(st.back());
-        }
-        st.push_back(make_tuple(xs[i], i + 1));
+        // Positions are 1-indexed
+        st.push_back({xs[i], i + 1});
     }
     return res;
 }
@@ -64,13 +59,9 @@ int main()
     cin >> n;
     vector<int> xs(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> xs[i];
-    }
     vector<int> res = solve(n, xs);
     for (int i = 0; i < n; i++)
-    {
         cout << res[i] << " ";
-    }
     return 0;
 }

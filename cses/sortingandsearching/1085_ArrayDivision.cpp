@@ -33,38 +33,35 @@ using namespace std;
 
 ll solve(ll n, ll k, vector<ll> xs)
 {
-    ll res, j, _sum, mid, lo = xs[0], hi = 0;
+    ll lo = xs[0], hi = 0;
     for (ll x : xs)
     {
         lo = max(lo, x);
         hi += x;
     }
-    res = hi;
+    ll res = hi;
     while (lo <= hi)
     {
-        mid = lo + (hi - lo) / 2;
+        ll mid = lo + (hi - lo) / 2;
         // j is the number of subarrays that have sum <= mid
-        j = 0;
+        ll j = 0;
         // sum of the current subarray
-        _sum = 0;
+        ll s = 0;
         for (ll x : xs)
         {
-            _sum += x;
+            s += x;
             // increment count only if max_sum `mid` is exceeded!
-            if (_sum > mid)
+            if (s > mid)
             {
                 if (++j > k)
-                {
                     break;
-                }
-                _sum = x;
+                // new subarray with x as 1st item
+                s = x;
             }
         }
         // add the last subarray!
-        if (_sum > 0)
-        {
+        if (s > 0)
             j++;
-        }
         // try a smaller max_sum
         if (j <= k)
         {
@@ -85,9 +82,7 @@ int main()
     cin >> n >> k;
     vector<ll> xs(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> xs[i];
-    }
     cout << solve(n, k, xs);
     return 0;
 }

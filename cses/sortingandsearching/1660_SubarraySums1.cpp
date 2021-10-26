@@ -24,21 +24,20 @@ using namespace std;
 
 int solve(int n, int x, vector<int> ar)
 {
-    int res = 0, i = 0, j = 0, _sum = 0;
+    // i and j are head and tail of subarray
+    int res = 0, i = 0, j = 0, s = 0;
     // handle the last subarray! (shrink from the left)
-    while (j < n || _sum >= x)
+    while (j < n || s >= x)
     {
-        if (_sum < x)
+        if (s < x)
         {
-            _sum += ar[j];
+            s += ar[j];
             j++;
             continue;
         }
-        if (_sum == x)
-        {
+        if (s == x)
             res++;
-        }
-        _sum -= ar[i];
+        s -= ar[i];
         i++;
     }
     return res;
@@ -52,9 +51,7 @@ int main()
     cin >> n >> x;
     vector<int> ar(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ar[i];
-    }
     cout << solve(n, x, ar);
     return 0;
 }

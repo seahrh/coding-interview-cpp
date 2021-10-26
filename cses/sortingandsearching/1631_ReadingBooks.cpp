@@ -35,25 +35,24 @@ using namespace std;
 ll solve(int n, vector<ll> ts)
 {
     sort(ts.begin(), ts.end());
-    vector<ll> right(n);
-    ll _sum = 0; 
+    // suffix sum
+    vector<ll> suf(n);
+    ll s = 0;
     for (int i = n - 1; i >= 0; i--)
     {
-        _sum += ts[i];
-        right[i] = _sum;
+        s += ts[i];
+        suf[i] = s;
     }
-    _sum = 0;
+    s = 0;
     // invariant: left partition can be empty but right partition must have at least 1 book!
     // If there is only 1 book, will not enter the loop
     for (int i = 0; i < n - 1; i++)
     {
         // left takes curr book
-        _sum += ts[i];
+        s += ts[i];
         // right takes next book
-        if (_sum >= right[i + 1])
-        {
-            return _sum + right[i + 1];
-        }
+        if (s >= suf[i + 1])
+            return s + suf[i + 1];
     }
     return ts[n - 1] * 2;
 }
@@ -66,9 +65,7 @@ int main()
     cin >> n;
     vector<ll> ts(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ts[i];
-    }
     cout << solve(n, ts);
     return 0;
 }

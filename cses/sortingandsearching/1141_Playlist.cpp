@@ -1,5 +1,6 @@
 /*
-You are given a playlist of a radio station since its establishment. The playlist has a total of n songs.
+You are given a playlist of a radio station since its establishment. 
+The playlist has a total of n songs.
 What is the longest sequence of successive songs where each song is unique?
 Input
 The first input line contains an integer n: the number of songs.
@@ -26,19 +27,20 @@ using namespace std;
 
 int solve(int n, vector<int> ks)
 {
+    // i and j are left and right boundaries of window
     int i = 0, j = 0, res = 0;
-    set<int> ids;
+    set<int> see;
     while (j < n)
     {
-        if (ids.find(ks[j]) == ids.end())
+        if (see.find(ks[j]) == see.end())
         {
-            ids.insert(ks[j]);
+            see.insert(ks[j]);
+            res = max(res, (int)see.size());
             j++;
-            res = max(res, static_cast<int>(ids.size()));
         }
         else
         {
-            ids.erase(ks[i]);
+            see.erase(ks[i]);
             i++;
         }
     }
@@ -53,9 +55,7 @@ int main()
     cin >> n;
     vector<int> ks(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ks[i];
-    }
     cout << solve(n, ks);
     return 0;
 }

@@ -28,16 +28,17 @@ Space O(1)
 */
 #include <bits/stdc++.h>
 #define ll long long
+#define t2 tuple<ll, ll>
 using namespace std;
 
-ll solve(int n, vector<tuple<ll, ll>> tasks)
+ll solve(vector<t2> tasks)
 {
     ll res = 0, curr = 0;
     sort(tasks.begin(), tasks.end());
-    for (int i = 0; i < n; i++)
+    for (auto [a, d] : tasks)
     {
-        curr += get<0>(tasks[i]);
-        res += get<1>(tasks[i]) - curr;
+        curr += a;
+        res += d - curr;
     }
     return res;
 }
@@ -46,15 +47,14 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n;
+    ll n, a, d;
     cin >> n;
-    vector<tuple<ll, ll>> tasks(n);
-    ll a, d;
+    vector<t2> tasks(n);
     for (int i = 0; i < n; i++)
     {
         cin >> a >> d;
-        tasks[i] = make_tuple(a, d);
+        tasks[i] = {a, d};
     }
-    cout << solve(n, tasks);
+    cout << solve(tasks);
     return 0;
 }

@@ -39,6 +39,7 @@ const ll max_size = 2e5 + 1;
 // 2-tuple (to_node, weight)
 vector<vector<tll>> adj(max_size);
 vector<bool> vis(max_size);
+// dis[i] = distance from node 1 to node i
 vector<ll> dis(max_size, LLONG_MAX);
 
 int main()
@@ -55,21 +56,21 @@ int main()
     dis[1] = 0;
     // `greater` specifies min heap
     // 2-tuple (distance to selected node, selected node)
-    priority_queue<tll, vector<tll>, greater<tll>> q;
-    q.push({0, 1});
-    while (!q.empty())
+    priority_queue<tll, vector<tll>, greater<tll>> minh;
+    minh.push({0, 1});
+    while (!minh.empty())
     {
-        u = get<1>(q.top());
-        q.pop();
+        u = get<1>(minh.top());
+        minh.pop();
         if (vis[u])
             continue;
         vis[u] = 1;
         for (auto [v, w] : adj[u])
         {
-            if (dis[v] > dis[u] + w)
+            if (dis[u] + w < dis[v])
             {
                 dis[v] = dis[u] + w;
-                q.push({dis[v], v});
+                minh.push({dis[v], v});
             }
         }
     }

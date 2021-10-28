@@ -32,13 +32,12 @@ Space O(N^2)
 using namespace std;
 ll max_size = (ll)2e5 + 1;
 vector<vector<ll>> adj(max_size);
-vector<ll> vis(max_size);
+vector<bool> vis(max_size);
 ll res = 0;
 
 void dfs(ll s, ll parent)
 {
     for (auto i : adj[s])
-    {
         if (i != parent)
         {
             dfs(i, s);
@@ -48,7 +47,6 @@ void dfs(ll s, ll parent)
                 res++;
             }
         }
-    }
 }
 
 int main()

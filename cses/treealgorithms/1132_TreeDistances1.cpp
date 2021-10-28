@@ -36,8 +36,8 @@ References
 using namespace std;
 ll max_size = 2e5 + 1;
 vector<vector<ll>> adj(max_size);
-// dist[i][0] = distance from node i to leaf node a
-// dist[i][1] = distance from node i to leaf node b
+// dist[i][0] = distance from 1st leaf node to node i
+// dist[i][1] = distance from 2nd leaf node to node i
 vector<vector<ll>> dist(max_size, vector<ll>(2));
 
 // return node furthest away from origin (either 1st or 2nd leaf node)
@@ -46,14 +46,12 @@ ll dfs(ll s, ll parent, ll d, ll origin)
     dist[s][origin] = d;
     ll res = s;
     for (ll i : adj[s])
-    {
         if (i != parent)
         {
             ll x = dfs(i, s, d + 1, origin);
             if (dist[x][origin] > dist[res][origin])
                 res = x;
         }
-    }
     return res;
 }
 
@@ -75,8 +73,6 @@ int main()
     b = dfs(a, 0, 0, 0);
     dfs(b, 0, 0, 1);
     for (ll i = 1; i < n + 1; i++)
-    {
         cout << max(dist[i][0], dist[i][1]) << " ";
-    }
     return 0;
 }

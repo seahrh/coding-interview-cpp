@@ -43,15 +43,15 @@ using namespace std;
 ll max_size = 2e5 + 1;
 vector<vector<ll>> adj(max_size);
 // x is the node furthest away from the start node.
+// d is the distance to x
 ll d = 0, x = 0;
 
+// dist is the current length of the path beginning from 1st node
 void dfs(ll s, ll parent, ll dist)
 {
     for (auto i : adj[s])
-    {
         if (i != parent)
             dfs(i, s, dist + 1);
-    }
     if (dist > d)
     {
         d = dist;

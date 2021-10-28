@@ -1,6 +1,8 @@
 /*
-A company has n employees, who form a tree hierarchy where each employee has a boss, except for the general director.
-Your task is to process q queries of the form: who is employee x's boss k levels higher up in the hierarchy?
+A company has n employees, who form a tree hierarchy 
+where each employee has a boss, except for the general director.
+Your task is to process q queries of the form: 
+who is employee x's boss k levels higher up in the hierarchy?
 Input
 The first input line has two integers n and q: the number of employees and queries. 
 The employees are numbered 1,2,…,n, and employee 1 is the general director.

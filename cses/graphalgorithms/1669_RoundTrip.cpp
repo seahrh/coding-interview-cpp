@@ -29,32 +29,41 @@ Input:
 Output:
 4
 3 5 1 3
+SOLUTION
+Start DFS on every node to find cycles.
+Time O(V * (V+E))
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
 ll max_size = 2e5 + 1;
 vector<vector<ll>> adj(max_size);
-vector<bool> vis(max_size);
-vector<ll> cyc;
+vector<ll> vis(max_size);
+deque<ll> path;
 
 // returns True if a cycle is found
-// remember previous node to prevent backtracking on the cycle
+// remember parent node to avoid premature termination on visited node
+// parent node is required for undirected edges
 bool dfs(ll s, ll p)
 {
     vis[s] = 1;
     for (auto i : adj[s])
     {
-        cyc.push_back(i);
-        // cycle is found downstream 
+        // cycle is found downstream
         if (!vis[i] && dfs(i, s))
+        {
+            path.push_front(i);
             return 1;
-        // return to a visited node; cycle found and terminate
-        if (i != p)
+        }
+        // return to a visited node; cycle found
+        // add tail of cycle (first node in path)
+        if (i != p && vis[i] == 1)
+        {
+            path.push_front(i);
             return 1;
-        // child cannot be part of the cycle 
-        cyc.pop_back();
+        }
     }
+    vis[s] = 2;
     return 0;
 }
 
@@ -73,20 +82,17 @@ int main()
     }
     for (ll i = 1; i < n + 1; i++)
     {
-        // head of cycle
-        cyc = {i};
+        path = {};
         if (!vis[i] && dfs(i, 0))
         {
-            // somewhere along the cycle, there are two repeating nodes
-            // reverse loop to find another node that matches tail
-            ll c = (ll)cyc.size();
-            ll j = c - 2;
-            while (j >= 0 && cyc[j] != cyc[c - 1])
-                j--;
-            if (j >= 0)
+            path.push_front(i);
+            // head and tail of cycle must be the same
+            while (path.front() != path.back())
+                path.pop_front();
+            ll len = (ll)path.size();
+            if (len >= 4)
             {
-                vector<ll> path = vector<ll>(cyc.begin() + j, cyc.end());
-                cout << path.size() << endl;
+                cout << len << endl;
                 for (auto p : path)
                     cout << p << " ";
                 return 0;

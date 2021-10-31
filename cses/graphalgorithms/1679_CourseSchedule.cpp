@@ -23,6 +23,7 @@ Input:
 Output:
 3 4 1 5 2
 SOLUTION
+Tour where all n nodes must be visited.
 DFS to do 2 things
 - Detect cycle (ensure it is a DAG)
 - Topological sort
@@ -38,9 +39,9 @@ vector<vector<ll>> adj(maxn);
 vector<bool> vis(maxn);
 // marker for cycle finding
 vector<ll> mar(maxn);
-vector<ll> path;
+vector<ll> ord;
 
-// Assumes directed acyclic graph
+// Topological sort on DAG
 void dfs(ll s)
 {
     if (vis[s])
@@ -48,9 +49,9 @@ void dfs(ll s)
     vis[s] = 1;
     for (auto i : adj[s])
         dfs(i);
-    // All ancestor nodes have been added to path
-    // path is already in correct order (no need to reverse)
-    path.push_back(s);
+    // All ancestor nodes (dependencies) have been added to list
+    // list is already in sorted order (no need to reverse)
+    ord.push_back(s);
 }
 
 bool cycle(ll s)
@@ -92,7 +93,7 @@ int main()
         if (!vis[i])
             dfs(i);
     }
-    for (auto p : path)
-        cout << p << " ";
+    for (auto o : ord)
+        cout << o << " ";
     return 0;
 }

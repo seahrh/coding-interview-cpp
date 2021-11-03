@@ -35,12 +35,12 @@ Bellman-Ford can handle negative weights but not negative cycles.
 #define ll long long
 #define tll tuple<ll, ll>
 using namespace std;
-const ll max_size = 2e5 + 1;
+const ll maxn = 1e5 + 1;
 // 2-tuple (to_node, weight)
-vector<vector<tll>> adj(max_size);
-vector<bool> vis(max_size);
-// dis[i] = distance from node 1 to node i
-vector<ll> dis(max_size, LLONG_MAX);
+vector<vector<tll>> adj(maxn);
+vector<bool> vis(maxn);
+// dis[i] = shortest distance from node 1 to i
+vector<ll> dis(maxn, LLONG_MAX);
 
 int main()
 {
@@ -66,13 +66,11 @@ int main()
             continue;
         vis[u] = 1;
         for (auto [v, w] : adj[u])
-        {
             if (dis[u] + w < dis[v])
             {
                 dis[v] = dis[u] + w;
                 minh.push({dis[v], v});
             }
-        }
     }
     for (ll i = 1; i < n + 1; i++)
         cout << dis[i] << " ";

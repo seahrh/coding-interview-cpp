@@ -23,9 +23,9 @@ where pi[i] is the length of the longest proper prefix of the substring s[:i+1]
 which is also a proper suffix of this substring. 
 A proper prefix of a string is a prefix that is not equal to the string itself.
 By definition, pi[0]=0.
-We generate the string s + '\\#' + t, where '\\#' is a separator that appears neither in s nor t.
-If equality pi[i]=m is achieved, then it means that s is found (i.e. ends at position i).
-This length cannot be bigger than n due to the separator.
+We generate the string s + '#' + t, where '#' is a separator that appears neither in s nor t.
+If pi[i] == m, then s is found (ends at position i).
+This length cannot be bigger than M due to the separator.
 References
 - https://cp-algorithms.com/string/prefix-function.html
 - https://www.youtube.com/watch?v=V5-7GzOfADQ
@@ -59,11 +59,9 @@ ll solve(string s, string t)
     vector<ll> pi = prefix(st);
     ll res = 0;
     for (ll i = 0; i < (ll)pi.size(); i++)
-    {
         // Values in pi array are 1-indexed
         if (pi[i] == (ll)s.size())
             res++;
-    }
     return res;
 }
 

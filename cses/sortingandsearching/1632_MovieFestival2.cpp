@@ -22,11 +22,22 @@ Input:
 6 9
 Output:
 4
+SOLUTION
+Greedy method. We process films in order of end time. 
+For every film, if no person is free at start time, we dont watch that film. 
+If at least one person free, we use the one latest free.
+Maintain BST of person's available times. Initially all persons are available at time 0.
+
+Time O(N lg N + K lg K + N lg K)
+Space O(N + K)
+
+References
+- https://usaco.guide/problems/cses-1632-movie-festival-ii/solution
+- https://codeforces.com/blog/entry/82695
 */
 #include <bits/stdc++.h>
-// tuple (time, is_start)
-// process end=0 before start=1, so resource can be freed up
-#define tri tuple<int, bool, int>
+// Sort by end time, hence tuple (end, start)
+#define pai tuple<int, int>
 using namespace std;
 
 int main()
@@ -35,30 +46,27 @@ int main()
     cin.tie(NULL);
     int n, k, a, b;
     cin >> n >> k;
-    vector<tri> tim;
+    vector<pai> ms(n);
     for (int i = 0; i < n; i++)
     {
         cin >> a >> b;
-        tim.push_back({a, 1, i});
-        tim.push_back({b, 0, i});
+        ms[i] = {b, a};
     }
-    sort(tim.begin(), tim.end());
+    sort(ms.begin(), ms.end());
     int res = 0;
-    // a is #club members unassigned
-    set<int> wat;
-    for (auto [t, start, i] : tim)
+    multiset<int> ava;
+    while (k--)
+        ava.insert(0);
+    for (auto [b, a] : ms)
     {
-        if (start)
-        {
-            if ((int)wat.size()<k)
-            {
-                wat.insert(i);
-                res++;
-            }
+        // first person avail after start time
+        // any person to the left is avail <= start time
+        auto it = ava.upper_bound(a);
+        if (it == ava.begin())
             continue;
-        }
-        // movie ended, return resource
-        wat.erase(i);
+        ava.erase(--it);
+        ava.insert(b);
+        res++;
     }
     cout << res;
     return 0;

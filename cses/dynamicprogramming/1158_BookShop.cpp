@@ -25,7 +25,7 @@ SOLUTION
 Bottom-up DP (tabulation) works only if weights and capacity are positive integers.
 dp[i][j] = max #pages using only first i books and budget j.
 Recurring relation: dp[i][j] = max(not take ith item, take ith item)
-Base case: dp[0][0] = 0
+Base case: dp[i][0] = 0, dp[0][j] = 0
 Time O(NB)
 Space O(NB)
 
@@ -37,21 +37,17 @@ using namespace std;
 int solve(int n, int x, vector<int> prices, vector<int> pages)
 {
     vector<vector<int>> dp(n + 1, vector<int>(x + 1));
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= x; j++)
+    for (int i = 1; i < n + 1; i++)
+        for (int j = 1; j < x + 1; j++)
         {
             int take = 0;
-            // i is 1-indexed so (i-1) is actually the ith book!
+            // i is 1-indexed so (i-1) is the ith book!
             int remainder = j - prices[i - 1];
             if (remainder >= 0)
-            {
                 take = dp[i - 1][remainder] + pages[i - 1];
-            }
             int not_take = dp[i - 1][j];
             dp[i][j] = max(take, not_take);
         }
-    }
     return dp[n][x];
 }
 
@@ -64,13 +60,9 @@ int main()
     vector<int> prices(n);
     vector<int> pages(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> prices[i];
-    }
     for (int i = 0; i < n; i++)
-    {
         cin >> pages[i];
-    }
     cout << solve(n, x, prices, pages) << endl;
     return 0;
 }

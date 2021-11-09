@@ -18,12 +18,16 @@ Input:
 Output:
 3
 SOLUTION
+dp[i] = min #coins to make sum i
 We look at the last coin added to get sum x, say it has value v.
 We need dp[x-v] coins to get value x-v, and 1 coin for value v.
 Therefore we need dp[x-v]+1 coins if we are to use a coin with value v.
+
 Time O(X lg N): binary search coins in the loop
 Space O(X): memo array
-See https://codeforces.com/blog/entry/70018
+
+References
+- https://codeforces.com/blog/entry/70018
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,17 +37,15 @@ int solve(int n, int x, vector<int> cs)
     sort(cs.begin(), cs.end());
     int impossible = x + 1;
     vector<int> dp(x + 1, impossible);
-    // single coin counts
+    // Base case: single coin counts
     for (int c : cs)
     {
         if (c > x)
-        {
             break;
-        }
         dp[c] = 1;
     }
-    // start looping target after 1st coin
-    for (int i = cs[0] + 1; i <= x; i++)
+    // start looping after 1st coin
+    for (int i = cs[0] + 1; i < x + 1; i++)
     {
         if (dp[i] != impossible)
             continue;
@@ -53,15 +55,11 @@ int solve(int n, int x, vector<int> cs)
         auto it = upper_bound(cs.begin(), cs.end(), i);
         int hi = distance(cs.begin(), it);
         for (int j = 0; j < hi; j++)
-        {
             best = min(best, dp[i - cs[j]] + 1);
-        }
         dp[i] = best;
     }
     if (dp[x] == impossible)
-    {
         return -1;
-    }
     return dp[x];
 }
 
@@ -73,9 +71,7 @@ int main()
     cin >> n >> x;
     vector<int> cs(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> cs[i];
-    }
     cout << solve(n, x, cs);
     return 0;
 }

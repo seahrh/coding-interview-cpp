@@ -54,9 +54,7 @@ int solve(int n, int x, vector<int> cs)
         auto it = upper_bound(cs.begin(), cs.end(), i);
         int hi = distance(cs.begin(), it);
         for (int j = 0; j < hi; j++)
-        {
             (dp[i] += dp[i - cs[j]]) %= mod;
-        }
     }
     return dp[x];
 }
@@ -69,9 +67,7 @@ int main()
     cin >> n >> x;
     vector<int> cs(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> cs[i];
-    }
     cout << solve(n, x, cs);
     return 0;
 }

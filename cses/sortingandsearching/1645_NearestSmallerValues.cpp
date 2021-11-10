@@ -35,18 +35,18 @@ using namespace std;
 vector<int> solve(int n, vector<int> xs)
 {
     vector<int> res(n);
-    vector<tuple<int, int>> st;
+    vector<int> st;
     for (int i = 0; i < n; i++)
     {
-        // delete all preceding items that are not smaller than curr
-        while (!st.empty() && get<0>(st.back()) >= xs[i])
+        // delete all predecessors that are not smaller than curr
+        while (!st.empty() && xs[st.back()] >= xs[i])
             st.pop_back();
         if (st.empty())
             res[i] = 0;
         else
-            res[i] = get<1>(st.back());
-        // Positions are 1-indexed
-        st.push_back({xs[i], i + 1});
+            // Positions are 1-indexed 
+            res[i] = st.back() + 1;
+        st.push_back(i);
     }
     return res;
 }

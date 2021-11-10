@@ -24,11 +24,11 @@ dp[i][j] = min number of moves to change a[:i+1] to b[:j+1]
 Base case: both strings are empty, or 1 string has length 1
 Recurrence:
 - Delete char, dp[i][j] = min(dp[i][j], dp[i - 1][j] + 1);
-  Moving up (e.g. delete chars one by one from non-empty a to get empty string b)
+- Moving up: delete chars one by one from non-empty a to get empty string b
 - Add char, dp[i][j] = min(dp[i][j], dp[i][j - 1] + 1);
-  Moving right (e.g. add chars to empty string a to get b)
-- Both chars are equal, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1]);
-- Replace char, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + 1);
+- Moving right: add chars to empty string a to get b
+- Replace char, dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + 1)
+- If both chars are equal, then dp[i][j] = min(dp[i][j], dp[i - 1][j - 1])
 Time O(NM)
 Space O(NM)
 */
@@ -47,7 +47,6 @@ int solve(string a, string b)
     for (int i = 1; i < nb + 1; i++)
         dp[0][i] = i;
     for (int i = 1; i < na + 1; i++)
-    {
         for (int j = 1; j < nb + 1; j++)
         {
             // minus 1 because dp[0] means empty string!
@@ -55,7 +54,6 @@ int solve(string a, string b)
             // min([add, delete, replace])
             dp[i][j] = min({dp[i][j - 1] + 1, dp[i - 1][j] + 1, dp[i - 1][j - 1] + r});
         }
-    }
     return dp[na][nb];
 }
 

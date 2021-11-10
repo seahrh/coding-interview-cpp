@@ -20,10 +20,14 @@ Output:
 Explanation: The arrays [2,1,2], [2,2,2] and [2,3,2] match the description.
 SOLUTION
 Bottom-up DP, fill memo table row-wise.
-dp[i][j] = #ways to generate the array, using only first i items and some upper bound j.
+dp[i][j] = #arrays matching the first i items and ith value == j.
+Base case: array has only one item
+- If first item is zero, then it matches for all M.
+
 Recurrence: dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j] + dp[i - 1][j + 1]
-Why top 3 cells? The difference between two adjacent values is at most 1.
-Answer: sum the last row i.e. all possible ways for all N items
+- Why top 3 cells? The difference between two adjacent values is at most 1.
+
+Answer: sum the last row i.e. all possible ways for all N items and M values
 Time O(NM)
 Space O(NM)
 */
@@ -34,34 +38,23 @@ const int mod = 1e9 + 7;
 int solve(int n, int m, vector<int> ar)
 {
     vector<vector<int>> dp(n + 1, vector<int>(m + 1));
-    // Base case: array has only one item
-    // If first item is zero, then it matches for all M.
+    // Base case
     for (int j = 1; j < m + 1; j++)
-    {
         if (ar[0] == 0 || ar[0] == j)
             dp[1][j] = 1;
-    }
-    // so loop starts from 2nd item
+    // loop starts from 2nd item
     for (int i = 2; i < n + 1; i++)
-    {
         for (int j = 1; j < m + 1; j++)
-        {
             if (ar[i - 1] == 0 || ar[i - 1] == j)
             {
                 (dp[i][j] += dp[i - 1][j - 1] + dp[i - 1][j]) %= mod;
                 // Prevent IndexOutOfBounds
                 if (j + 1 <= m)
-                {
                     (dp[i][j] += dp[i - 1][j + 1]) %= mod;
-                }
             }
-        }
-    }
     int res = 0;
-    for (int v : dp[n])
-    {
+    for (auto v : dp[n])
         (res += v) %= mod;
-    }
     return res;
 }
 
@@ -73,9 +66,7 @@ int main()
     cin >> n >> m;
     vector<int> ar(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ar[i];
-    }
     cout << solve(n, m, ar);
     return 0;
 }

@@ -22,7 +22,8 @@ Example can be broken down into the following steps:
 2 -> 3
 4 <- 3
 4 -> 5
-Number of rounds starts at 1 and incremented by the #backward arrows.
+Number of rounds starts at 1 
+and incremented by the #inversions of consecutive numbers (backward arrows).
 Time O(N)
 Space O(N): store indices of values 1..N
 
@@ -48,7 +49,7 @@ int main()
     ll res = 1, j = ind[1];
     for (ll i = 2; i < n + 1; i++)
     {
-        // Prev number found on the right (backward arrow)
+        // Inversion: prev number found on the right
         if (j > ind[i])
             res++;
         j = ind[i];

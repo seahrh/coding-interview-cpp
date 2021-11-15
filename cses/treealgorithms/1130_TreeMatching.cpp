@@ -30,9 +30,9 @@ Space O(N^2)
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = (ll)2e5 + 1;
-vector<vector<ll>> adj(max_size);
-vector<bool> vis(max_size);
+ll mxn = 2e5;
+vector<vector<ll>> adj(mxn + 1);
+vector<bool> vis(mxn + 1);
 ll res = 0;
 
 void dfs(ll s, ll parent)

@@ -16,24 +16,25 @@ Output:
 4 1 1 0 0
 SOLUTION
 Directed acyclic graph where edge represents "SubordinateOf". 
-Root is biggest boss in the company.
+dp[i] = #subordinates of employee i
+
 Time O(N)
 Space O(N): each employee can have at most one boss
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = (ll)2e5;
-// no need to mark visited because traversing from root
-vector<vector<ll>> adj(max_size);
-vector<ll> sb(max_size);
+ll mxn = 2e5;
+// no need to mark visited because only traversing once from root
+vector<vector<ll>> adj(mxn + 1);
+vector<ll> dp(mxn + 1);
 
 void dfs(ll s)
 {
     for (auto i : adj[s])
     {
         dfs(i);
-        sb[s] += sb[i] + 1;
+        dp[s] += dp[i] + 1;
     }
 }
 
@@ -43,16 +44,14 @@ int main()
     cin.tie(NULL);
     ll n, x;
     cin >> n;
-    for (ll i = 1; i < n; i++)
+    for (ll i = 2; i < n + 1; i++)
     {
         cin >> x;
-        // i is a subordinate of (x-1)
-        adj[x - 1].push_back(i);
+        // i is a subordinate of x
+        adj[x].push_back(i);
     }
-    dfs(0);
-    for (ll i = 0; i < n; i++)
-    {
-        cout << sb[i] << " ";
-    }
+    dfs(1);
+    for (ll i = 1; i < n + 1; i++)
+        cout << dp[i] << " ";
     return 0;
 }

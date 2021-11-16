@@ -42,11 +42,10 @@ int solve(int n, int x, vector<int> prices, vector<int> pages)
         {
             int take = 0;
             // i is 1-indexed so (i-1) is the ith book!
-            int remainder = j - prices[i - 1];
-            if (remainder >= 0)
-                take = dp[i - 1][remainder] + pages[i - 1];
-            int not_take = dp[i - 1][j];
-            dp[i][j] = max(take, not_take);
+            int k = j - prices[i - 1];
+            if (k >= 0)
+                take = dp[i - 1][k] + pages[i - 1];
+            dp[i][j] = max(dp[i - 1][j], take);
         }
     return dp[n][x];
 }

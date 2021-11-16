@@ -56,7 +56,7 @@ void dfs(ll s)
 
 bool cycle(ll s)
 {
-    // temporary mark: parent visited but not children
+    // temporary mark: node visited but not ancestors
     mar[s] = 1;
     for (auto i : adj[s])
     {
@@ -66,7 +66,7 @@ bool cycle(ll s)
         if (mar[i] == 1)
             return 1;
     }
-    // permanent mark: parent and all children visited
+    // permanent mark: no cycle found in this node and all its ancestors
     mar[s] = 2;
     return 0;
 }

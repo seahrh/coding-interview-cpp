@@ -54,6 +54,8 @@ void bfs(ll s)
         {
             if (vis[i])
                 continue;
+            // process the node before enqueue
+            // queue is for exploring neighbour nodes
             vis[i] = 1;
             parent[i] = curr;
             q.push(i);

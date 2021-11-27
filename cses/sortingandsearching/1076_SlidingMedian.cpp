@@ -22,9 +22,10 @@ Time O(N lg K)
 Space O(K)
 Middle of two heaps
 Invariants
-- Upper heap must be smaller than or equal to lower heap
-- Max size of Lower heap is (size of upper heap + 1)
-Hence, regardless of whether window length is odd or even, median is always the largest item in lower heap.
+- Lower heap cannot be empty
+- Max size of upper heap is size of lower heap
+- Max size of lower heap is (size of upper heap + 1)
+Regardless of even or odd window length, median is always the largest item in lower heap.
 In C++, use `multiset` (BSTs) for upper and lower heaps.
 */
 #include <bits/stdc++.h>
@@ -111,13 +112,9 @@ int main()
 	cin >> n >> k;
 	vector<ll> xs(n);
 	for (ll i = 0; i < n; i++)
-	{
 		cin >> xs[i];
-	}
 	vector<ll> res = sliding_median(n, k, xs);
 	for (auto r = begin(res); r != end(res); ++r)
-	{
 		cout << *r << " ";
-	}
 	return 0;
 }

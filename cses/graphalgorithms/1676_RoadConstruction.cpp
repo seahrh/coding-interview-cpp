@@ -28,16 +28,19 @@ Output:
 SOLUTION
 Union-Find
 Time O(EV)
+Space O(V)
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-const ll maxn = 1e5 + 1;
+const ll N = 1e5 + 1;
 // par[i] = parent node of i in the same connected component
 // if par[i] == 0, then i is the root of the cc
-vector<ll> par(maxn);
+vector<ll> par(N);
 // len[i] = size of cc rooted at node i
-vector<ll> len(maxn, 1);
+vector<ll> len(N, 1);
+// number of connected components, size of largest cc
+ll c, mx;
 
 // find the root of the connected component tree
 ll find(ll s)
@@ -47,11 +50,23 @@ ll find(ll s)
     return s;
 }
 
+void uni(ll x, ll y)
+{
+    // smaller cc always on the left
+    if (len[x] > len[y])
+        swap(x, y);
+    // add smaller cc to larger cc
+    par[x] = y;
+    len[y] += len[x];
+    c--;
+    mx = max(mx, len[y]);
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    ll n, m, a, b, c, mx;
+    ll n, m, a, b;
     cin >> n >> m;
     c = n, mx = 1;
     while (m--)
@@ -59,18 +74,8 @@ int main()
         cin >> a >> b;
         ll x = find(a), y = find(b);
         if (x != y)
-        {
-            // smaller cc always on the left
-            if (len[x] > len[y])
-                swap(x, y);
-            // add smaller cc to larger cc
-            par[x] = y;
-            len[y] += len[x];
-            c--;
-            mx = max(mx, len[y]);
-        }
+            uni(x, y);
         cout << c << " " << mx << endl;
     }
-
     return 0;
 }

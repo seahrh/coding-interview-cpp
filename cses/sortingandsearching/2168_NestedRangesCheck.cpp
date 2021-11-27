@@ -47,7 +47,7 @@ int main()
     for (ll i = 0; i < n; i++)
     {
         cin >> x >> y;
-        rs.push_back({x, y * -1, i});
+        rs.push_back({x, -y, i});
     }
     sort(rs.begin(), rs.end());
     vector<bool> res(n);

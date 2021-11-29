@@ -18,27 +18,11 @@ Output:
 5
 SOLUTION
 Time O(N)
-Space O(1)
+Space O(1): if the original array can be modified
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-
-ll solve(ll n, vector<ll> xs)
-{
-    ll res = 0;
-    ll prev = xs[0];
-    for (ll i = 1; i < n; i++)
-    {
-        while (xs[i] < prev)
-        {
-            xs[i]++;
-            res++;
-        }
-        prev = xs[i];
-    }
-    return res;
-}
 
 int main()
 {
@@ -48,9 +32,17 @@ int main()
     cin >> n;
     vector<ll> xs(n);
     for (ll i = 0; i < n; i++)
-    {
         cin >> xs[i];
+    ll res = 0, prev = xs[0];
+    for (ll i = 1; i < n; i++)
+    {
+        if (xs[i] < prev)
+        {
+            res += prev - xs[i];
+            xs[i] = prev;
+        }
+        prev = xs[i];
     }
-    cout << solve(n, xs);
+    cout << res;
     return 0;
 }

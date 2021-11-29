@@ -22,36 +22,13 @@ dp[i] = min #coins to make sum i
 We look at the last coin added to get sum x, say it has value v.
 We need dp[x-v] coins to get value x-v, and 1 coin for value v.
 Therefore we need dp[x-v]+1 coins if we are to use a coin with value v.
-
-Time O(X lg N): binary search coins in the loop
+Time O(N lg N + XN)
 Space O(X): memo array
-
 References
 - https://codeforces.com/blog/entry/70018
 */
 #include <bits/stdc++.h>
 using namespace std;
-
-int solve(int n, int x, vector<int> cs)
-{
-    sort(cs.begin(), cs.end());
-    int impossible = x + 1;
-    vector<int> dp(x + 1, impossible);
-    // Base case: when coin reduces sum to zero
-    dp[0] = 0;
-    for (int i = 1; i < x + 1; i++)
-    {
-        // consider all coins <= current target
-        // prevent IndexOutOfBounds when looking up dp array to the left!
-        auto it = upper_bound(cs.begin(), cs.end(), i);
-        int hi = distance(cs.begin(), it);
-        for (int j = 0; j < hi; j++)
-            dp[i] = min(dp[i], dp[i - cs[j]] + 1);
-    }
-    if (dp[x] == impossible)
-        return -1;
-    return dp[x];
-}
 
 int main()
 {
@@ -62,6 +39,23 @@ int main()
     vector<int> cs(n);
     for (int i = 0; i < n; i++)
         cin >> cs[i];
-    cout << solve(n, x, cs);
+    sort(cs.begin(), cs.end());
+    int impossible = x + 1;
+    vector<int> dp(x + 1, impossible);
+    // Base case: coin reduces sum to zero
+    dp[0] = 0;
+    for (int i = cs[0]; i < x + 1; i++)
+        // consider all coins <= current target
+        // ensure i - cs[j] >= 0 to prevent IndexOutOfBounds!
+        for (int j = 0; j < n; j++)
+        {
+            if (cs[j] > i)
+                break;
+            dp[i] = min(dp[i], dp[i - cs[j]] + 1);
+        }
+    if (dp[x] == impossible)
+        cout << -1;
+    else
+        cout << dp[x];
     return 0;
 }

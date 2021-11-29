@@ -16,57 +16,50 @@ Input:
 Output:
 8
 SOLUTION
-Let p[i] denote the sum of the first i elements. Each subarray sum can be represented as a p[j] - p[i].
-The question says to maximise it over all values i,j such that a <= j - i <= b,
-since j - i is the number of elements in the subarray.
-Iterate j from a to n. We want to maximize p[j] - p[i], therefore we want to minimize p[i].
-**i can be in the range from (j - b) to (j - a).
-Since we need to add and remove only one value, use a multiset to maintain the min value
-in the range by adding p[j - a] and removing p[j - b] in each iteration.
+Prefix sum array: ps[i] = sum of the first i elements
+ps[0] = 0 because ps[0] is sum of empty subarray.
+Each subarray sum is represented as (ps[j] - ps[i])
+where a <= j - i <= b and (j - i) is the size of the subarray.
+To maximize ps[j] - ps[i], minimize ps[i].
+Pass a sliding window through prefix sum array, 
+where (j-b) and (j-a) represent head and tail of window.
+**This window contains all possible positions of i.
+Use a BST to maintain the min value in the range 
+by adding ps[j-a] and removing ps[j-b] in each iteration.
 Time O(N lg N)
 Space O(N)
-See https://discuss.codechef.com/t/help-with-maximum-subarray-sum-ii-from-cses/73404
+References
+- https://discuss.codechef.com/t/help-with-maximum-subarray-sum-ii-from-cses/73404
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
 
-ll solve(int n, int a, int b, vector<ll> xs)
-{
-    // prefix sum array
-    // length is n+1 because ps[0] represents empty subarray!
-    vector<ll> ps(n + 1);
-    ps[0] = 0;
-    for (int i = 1; i <= n; i++)
-    {
-        ps[i] = ps[i - 1] + xs[i - 1];
-    }
-    multiset<ll> curr;
-    ll res = LLONG_MIN;
-    for (int j = a; j <= n; j++)
-    {
-        if (j > b)
-        {
-            // minus 1 because it is left of the head of the subarray
-            curr.erase(curr.find(ps[j - b - 1]));
-        }
-        curr.insert(ps[j - a]);
-        res = max(res, ps[j] - *curr.begin());
-    }
-    return res;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n, a, b;
+    ll n, a, b;
     cin >> n >> a >> b;
     vector<ll> xs(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> xs[i];
+    // prefix sum array
+    vector<ll> ps(n + 1);
+    for (int i = 1; i < n + 1; i++)
+        ps[i] = ps[i - 1] + xs[i - 1];
+    multiset<ll> bst;
+    ll res = LLONG_MIN;
+    for (ll j = a; j < n + 1; j++)
+    {
+        if (j > b)
+            // minus 1 bec it is left of the head of window
+            bst.erase(bst.find(ps[j - b - 1]));
+        // tail of window
+        bst.insert(ps[j - a]);
+        // mss = ps[j] - smallest ps[i]
+        res = max(res, ps[j] - *bst.begin());
     }
-    cout << solve(n, a, b, xs);
+    cout << res;
     return 0;
 }

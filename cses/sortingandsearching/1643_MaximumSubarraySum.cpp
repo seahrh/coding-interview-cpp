@@ -26,30 +26,22 @@ Space O(1)
 #define ll long long
 using namespace std;
 
-ll solve(int n, vector<int> ar)
-{
-    // cannot init sum as first element because it can be a negative number!
-    ll res = LLONG_MIN, curr = 0;
-    for (int i = 0; i < n; i++)
-    {
-        curr += ar[i];
-        res = max(res, curr);
-        curr = max(curr, 0LL);
-    }
-    return res;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n;
+    ll n;
     cin >> n;
-    vector<int> ar(n);
-    for (int i = 0; i < n; i++)
-    {
+    vector<ll> ar(n);
+    for (ll i = 0; i < n; i++)
         cin >> ar[i];
+    ll res = LLONG_MIN, sm = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        sm += ar[i];
+        res = max(res, sm);
+        sm = max(sm, 0LL);
     }
-    cout << solve(n, ar);
+    cout << res;
     return 0;
 }

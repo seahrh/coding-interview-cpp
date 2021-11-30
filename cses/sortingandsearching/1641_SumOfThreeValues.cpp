@@ -23,18 +23,18 @@ Space O(N): Requirement to return the positions, hence need to store the positio
 Otherwise, only O(1) space required.
 */
 #include <bits/stdc++.h>
+#define pai tuple<int, int>
+#define tri tuple<int, int, int>
 using namespace std;
 
-optional<tuple<int, int, int>> solve(int n, int x, vector<int> ar)
+optional<tri> solve(int n, int x, vector<int> ar)
 {
-    vector<tuple<int, int>> sar(n);
+    vector<pai> sar(n);
     for (int i = 0; i < n; i++)
-    {
         // positions are one-indexed!
-        sar[i] = make_tuple(ar[i], i + 1);
-    }
+        sar[i] = {ar[i], i + 1};
     sort(sar.begin(), sar.end());
-    int _sum, i, j, k;
+    int i, j, k;
     // maintain two slots ahead for j and k
     for (i = 0; i < n - 2; i++)
     {
@@ -42,12 +42,10 @@ optional<tuple<int, int, int>> solve(int n, int x, vector<int> ar)
         k = n - 1;
         while (j < k)
         {
-            _sum = get<0>(sar[i]) + get<0>(sar[j]) + get<0>(sar[k]);
-            if (_sum == x)
-            {
-                return make_tuple(get<1>(sar[i]), get<1>(sar[j]), get<1>(sar[k]));
-            }
-            if (_sum < x)
+            int sm = get<0>(sar[i]) + get<0>(sar[j]) + get<0>(sar[k]);
+            if (sm == x)
+                return {{get<1>(sar[i]), get<1>(sar[j]), get<1>(sar[k])}};
+            if (sm < x)
             {
                 j++;
                 continue;
@@ -66,19 +64,14 @@ int main()
     cin >> n >> x;
     vector<int> ar(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ar[i];
-    }
-    optional<tuple<int, int, int>> res = solve(n, x, ar);
-    tuple<int, int, int> t;
+    optional<tri> res = solve(n, x, ar);
     if (res)
     {
-        t = res.value();
+        tri t = res.value();
         cout << get<0>(t) << " " << get<1>(t) << " " << get<2>(t);
     }
     else
-    {
         cout << "IMPOSSIBLE";
-    }
     return 0;
 }

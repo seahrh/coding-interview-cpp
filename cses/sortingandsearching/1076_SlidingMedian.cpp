@@ -27,6 +27,7 @@ Invariants
 - Max size of lower heap is (size of upper heap + 1)
 Regardless of even or odd window length, median is always the largest item in lower heap.
 In C++, use `multiset` (BSTs) for upper and lower heaps.
+Use BST instead of priority_queue bec we need to binary search item to remove!
 */
 #include <bits/stdc++.h>
 #define ll long long

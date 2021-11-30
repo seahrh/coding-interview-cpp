@@ -17,17 +17,16 @@ Output:
 SOLUTION
 Directed acyclic graph where edge represents "SubordinateOf". 
 dp[i] = #subordinates of employee i
-
 Time O(N)
 Space O(N): each employee can have at most one boss
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll mxn = 2e5;
-// no need to mark visited because only traversing once from root
-vector<vector<ll>> adj(mxn + 1);
-vector<ll> dp(mxn + 1);
+ll N = 2e5;
+// no need to mark visited bec no cycles
+vector<vector<ll>> adj(N + 1);
+vector<ll> dp(N + 1);
 
 void dfs(ll s)
 {

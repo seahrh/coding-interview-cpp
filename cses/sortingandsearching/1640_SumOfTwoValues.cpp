@@ -22,26 +22,23 @@ Space O(N): Requirement to return the positions, hence need to store the positio
 Otherwise, only O(1) space required.
 */
 #include <bits/stdc++.h>
+#define pai tuple<int, int>
 using namespace std;
 
 optional<tuple<int, int>> solve(int n, int x, vector<int> ar)
 {
-    vector<tuple<int, int>> sar(n);
+    vector<pai> sar(n);
     for (int i = 0; i < n; i++)
-    {
         // Positions are one-indexed!
-        sar[i] = make_tuple(ar[i], i + 1);
-    }
+        sar[i] = {ar[i], i + 1};
     sort(sar.begin(), sar.end());
-    int i = 0, j = n - 1, _sum;
+    int i = 0, j = n - 1;
     while (i < j)
     {
-        _sum = get<0>(sar[i]) + get<0>(sar[j]);
-        if (_sum == x)
-        {
+        int sm = get<0>(sar[i]) + get<0>(sar[j]);
+        if (sm == x)
             return make_tuple(get<1>(sar[i]), get<1>(sar[j]));
-        }
-        if (_sum < x)
+        if (sm < x)
         {
             i++;
             continue;
@@ -59,17 +56,11 @@ int main()
     cin >> n >> x;
     vector<int> ar(n);
     for (int i = 0; i < n; i++)
-    {
         cin >> ar[i];
-    }
     optional<tuple<int, int>> res = solve(n, x, ar);
     if (res)
-    {
         cout << get<0>(res.value()) << " " << get<1>(res.value());
-    }
     else
-    {
         cout << "IMPOSSIBLE";
-    }
     return 0;
 }

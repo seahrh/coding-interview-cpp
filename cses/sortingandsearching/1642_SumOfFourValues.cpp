@@ -50,23 +50,22 @@ int main()
         for (ll j = i + 1; j < n; j++)
         {
             sm = ar[i] + ar[j];
-            ps[sm].push_back({i, j});
+            ps[sm].push_back({i + 1, j + 1});
         }
-    for (ll i = 0; i < n; i++)
-        for (ll j = i + 1; j < n; j++)
-        {
-            sm = ar[i] + ar[j];
-            // check if another pair has the complement
-            ll c = x - sm;
-            auto it = ps.find(c);
-            if (it != ps.end())
-                for (auto [p, q] : ps[c])
-                    if (p != i && p != j && q != i && q != j)
-                    {
-                        cout << p + 1 << " " << q + 1 << " " << i + 1 << " " << j + 1;
-                        return 0;
-                    }
-        }
+    for (auto [k, v] : ps)
+    {
+        // check if another pair has the complement
+        ll c = x - k;
+        if (ps.find(c) == ps.end())
+            continue;
+        for (auto [i, j] : v)
+            for (auto [p, q] : ps[c])
+                if (p != i && p != j && q != i && q != j)
+                {
+                    cout << p << " " << q << " " << i << " " << j;
+                    return 0;
+                }
+    }
     cout << "IMPOSSIBLE";
     return 0;
 }

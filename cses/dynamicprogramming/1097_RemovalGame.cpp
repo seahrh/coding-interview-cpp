@@ -20,15 +20,16 @@ Output:
 SOLUTION
 The sum of the two players' scores is the sum of the input list.
 Player 1 tries to maximize (score1 − score2), while player 2 tries to minimize it.
-Bottom-up DP with a twist: fill memo table upwards from last row to first row
-dp[i] = difference (score1 - score2) considering the game played only on interval [i, j].
+Bottom-up DP with a twist: fill memo table from last row to first row
+dp[i][j] = Max difference (score1 - score2) given that the game is played only on interval [i, j].
 Base case: If there is only one item in the interval (i == j), then the first player must take that item.
 dp[i][j] = xs[i]
 Recurring relation: dp[i] = max(take_head, take_tail)
-Take head, P2 starts first on [i + 1, j], thus xs[i] - dp[i + 1][j]
-Take tail, P2 starts first on [i, j - 1], thus xs[j] - dp[i][j - 1]
-Final answer is the mean of the total sum and (s1 - s2)
-i.e. (s1 + s2 + (s1 - s2)) / 2 = 2s1 / 2 = s1
+If P1 takes head, then P2 starts on [i + 1, j], thus xs[i] - dp[i + 1][j]
+If P1 takes tail, then P2 starts on [i, j - 1], thus xs[j] - dp[i][j - 1]
+Final answer s1 is the mean of the total sum and (s1 - s2).
+s1 = (s1 + s2 + s1 - s2) / 2
+s1 = 2*s1 / 2
 Time O(N^2)
 Space O(N^2)
 See https://codeforces.com/blog/entry/70018

@@ -19,13 +19,15 @@ Input:
 Output:
 4
 SOLUTION
-dp[i] = smallest ending value of an increasing subsequence of length i+1,
-using the elements considered so far.
-dp is a sorted array, so use binary search to find index where item should be inserted.
-Final answer is the length of the dp array after considering all elements.
+dp[i] = smallest ending value (tail) of an increasing subsequence of length i+1,
+For each item x in the array, do one of the following:
+(1) if x is larger than all tails, append it, increase the size by 1
+(2) if dp[i-1] < x <= dp[i], update dp[i].
+Find index i with binary search on dp array (sorted).
+Final answer is the length of dp array.
 
 In this task we were asked to find the longest strictly increasing subsequence.
-To find the longest increasing subsequence where we allow consecutive equal values, 
+To find the longest increasing subsequence where we allow consecutive equal values,
 change lower_bound to upper_bound.
 
 Time O(N lg N): binary search in the loop
@@ -33,6 +35,7 @@ Space O(N)
 
 References
 - https://codeforces.com/blog/entry/70018
+- https://leetcode.com/problems/longest-increasing-subsequence/solutions/74824/JavaPython-Binary-search-O(nlogn)-time-with-explanation/
 */
 #include <bits/stdc++.h>
 using namespace std;

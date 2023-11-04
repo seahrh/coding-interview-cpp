@@ -22,6 +22,7 @@ SOLUTION
 Binary search on the range of `max_sum` between `lo` and `hi`.
 Smallest subarray has length 1, so smallest sum `lo` is the max element.
 Largest subarray is the entire array, so largest sum `hi` is the sum of the array.
+The answer is `mid` the maximal subarray sum.
 If #subarrays is greater than k (subarrays are too short), increase max_sum.
 If #subarrays is less than or equals k (subarrays are too long), decrease max_sum.
 Time O(N lg NX)
@@ -46,21 +47,21 @@ ll solve(ll n, ll k, vector<ll> xs)
         // j is the number of subarrays that have sum <= mid
         ll j = 0;
         // sum of the current subarray
-        ll s = 0;
+        ll sm = 0;
         for (ll x : xs)
         {
-            s += x;
-            // increment count only if max_sum `mid` is exceeded!
-            if (s > mid)
+            sm += x;
+            // increment count if max_sum `mid` is exceeded!
+            if (sm > mid)
             {
                 if (++j > k)
                     break;
                 // new subarray with x as 1st item
-                s = x;
+                sm = x;
             }
         }
         // add the last subarray!
-        if (s > 0)
+        if (sm > 0)
             j++;
         // try a smaller max_sum
         if (j <= k)

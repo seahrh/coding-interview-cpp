@@ -3,7 +3,7 @@ There is a street of length x whose positions are numbered 0,1,…,x.
 Initially there are no traffic lights, but n sets of traffic lights are added to the street one after another.
 Your task is to calculate the length of the longest passage without traffic lights after each addition.
 Input
-The first input line contains two integers x and n: 
+The first input line contains two integers x and n:
 the length of the street and the number of sets of traffic lights.
 Then, the next line contains n integers p1,p2,…,pn: the position of each set of traffic lights.
 Each position is distinct.
@@ -30,7 +30,7 @@ using namespace std;
 
 vector<int> solve(int x, int n, vector<int> ps)
 {
-    // Ensure there will always be a left and right
+    // Ensure there must be a left and right ("fake" traffic lights if you will)
     set<int> positions = {0, x};
     // Max length = x - 0
     multiset<int> lengths = {x};

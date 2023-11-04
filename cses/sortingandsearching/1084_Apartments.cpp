@@ -28,18 +28,16 @@ Time O(N lg N + M lg M)
 Space O(1)
 */
 #include <bits/stdc++.h>
-#define lli long long int
-#define li long int
-#define ld long double
+#define ll long long
 using namespace std;
 
-int solve(vector<int> applicants, vector<int> apartments, int k)
+int solve(vector<ll> applicants, vector<ll> apartments, ll k)
 {
     sort(applicants.begin(), applicants.end());
     sort(apartments.begin(), apartments.end());
-    int res = 0, i = 0, j = 0;
-    int n = (int)applicants.size();
-    int m = (int)apartments.size();
+    ll res = 0, i = 0, j = 0;
+    ll n = (ll)applicants.size();
+    ll m = (ll)apartments.size();
     while (i < n && j < m)
     {
         if (abs(applicants[i] - apartments[j]) <= k)
@@ -66,13 +64,13 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n, m, k;
+    ll n, m, k;
     cin >> n >> m >> k;
-    vector<int> applicants(n);
-    vector<int> apartments(m);
-    for (int i = 0; i < n; i++)
+    vector<ll> applicants(n);
+    vector<ll> apartments(m);
+    for (ll i = 0; i < n; i++)
         cin >> applicants[i];
-    for (int i = 0; i < m; i++)
+    for (ll i = 0; i < m; i++)
         cin >> apartments[i];
     cout << solve(applicants, apartments, k);
     return 0;

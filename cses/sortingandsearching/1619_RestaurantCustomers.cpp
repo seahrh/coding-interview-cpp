@@ -26,14 +26,16 @@ Time O(N lg N)
 Space O(N)
 */
 #include <bits/stdc++.h>
-#define tii tuple<int, int>
-#define tib tuple<int, bool>
+// customer: arrival time, departure time
+#define pii tuple<int, int>
+// timeline entry: time, is arrival
+#define pib tuple<int, bool>
 using namespace std;
 
-int solve(int n, vector<tii> customers)
+int solve(int n, vector<pii> customers)
 {
     int res, curr = 0;
-    vector<tib> timeline;
+    vector<pib> timeline;
     for (auto [a, b] : customers)
     {
         timeline.push_back({a, 1});
@@ -57,7 +59,7 @@ int main()
     cin.tie(NULL);
     int n, a, b;
     cin >> n;
-    vector<tii> customers(n);
+    vector<pii> customers(n);
     for (int i = 0; i < n; i++)
     {
         cin >> a >> b;

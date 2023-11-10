@@ -25,7 +25,7 @@ Otherwise, only O(1) space required.
 #define pai tuple<int, int>
 using namespace std;
 
-optional<tuple<int, int>> solve(int n, int x, vector<int> ar)
+optional<pai> solve(int n, int x, vector<int> ar)
 {
     vector<pai> sar(n);
     for (int i = 0; i < n; i++)
@@ -37,7 +37,7 @@ optional<tuple<int, int>> solve(int n, int x, vector<int> ar)
     {
         int sm = get<0>(sar[i]) + get<0>(sar[j]);
         if (sm == x)
-            return make_tuple(get<1>(sar[i]), get<1>(sar[j]));
+            return {{get<1>(sar[i]), get<1>(sar[j])}};
         if (sm < x)
         {
             i++;
@@ -57,7 +57,7 @@ int main()
     vector<int> ar(n);
     for (int i = 0; i < n; i++)
         cin >> ar[i];
-    optional<tuple<int, int>> res = solve(n, x, ar);
+    optional<pai> res = solve(n, x, ar);
     if (res)
         cout << get<0>(res.value()) << " " << get<1>(res.value());
     else

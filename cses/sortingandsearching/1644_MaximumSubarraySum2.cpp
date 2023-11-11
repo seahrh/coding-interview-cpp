@@ -30,6 +30,7 @@ Time O(N lg N)
 Space O(N)
 References
 - https://discuss.codechef.com/t/help-with-maximum-subarray-sum-ii-from-cses/73404
+- https://www.youtube.com/watch?v=jgEcICsn_6c
 */
 #include <bits/stdc++.h>
 #define ll long long

@@ -16,13 +16,17 @@ Output:
 1
 SOLUTION
 Do a prefix sum from left to right.
-There exists a subarray divisible by N if the same remainder is encountered twice or more
-(i.e. completed one full cycle of N)
+There exists a subarray divisible by N if the same remainder R is encountered twice or more
+(i.e. completed at least one full cycle of N and therefore divisible by N)
+subarray S1 = (P*N)+R
+subarray S2 = (Q*N)+R
+S2 - S1 = N*(Q-P)
 N choose 2: how pairs of subarrays can be combined to form a longer subarray
 NC2 = N! / (R! * (N - R)!) = N(N - 1)/2
 Time O(N)
 Space O(N): store the counts of remainders
-See https://www.geeksforgeeks.org/count-sub-arrays-sum-divisible-k/
+References
+- https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/hashmap-and-heaps/count_of_subarrays_with_sum_divisible_by_k/topic
 */
 #include <bits/stdc++.h>
 #define ll long long
@@ -30,21 +34,21 @@ using namespace std;
 
 ll solve(int n, vector<ll> ar)
 {
-    ll res = 0, _sum = 0;
+    ll res = 0, sm = 0;
     // Map remainder to count of prefix subarrays
     vector<ll> counts(n, 0);
     for (ll a : ar)
     {
-        _sum += a;
+        sm += a;
         // Take modulus twice as sum can be negative!
-        counts[(_sum % n + n) % n] += 1;
+        counts[(sm % n + n) % n] += 1;
     }
     for (ll c : counts)
     {
         if (c > 1)
         {
             // N choose 2
-            res += (ll) c * (c - 1) / 2;
+            res += (ll)c * (c - 1) / 2;
         }
     }
     res += counts[0];

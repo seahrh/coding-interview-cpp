@@ -17,11 +17,15 @@ Output:
 SOLUTION
 Challenge is to handle negative numbers.
 Traverse array from left to right. CURRENT_SUM is the sum of elements from first item to current item.
-If there exists a prefix sum equals (CURRENT_SUM - TARGET),
+Remove a prefix R from current sum C to get subarray with sum X.
+C - R = X
+R = C - X
+If there exists a prefix sum R equals (C - X),
 then add the number of subarrays containing the prefix sum to the result.
 Time O(N)
 Space O(N)
-See https://www.geeksforgeeks.org/find-subarray-with-given-sum-in-array-of-integers/
+References
+- https://usaco.guide/problems/cses-1661-subarray-sums-ii/solution
 */
 #include <bits/stdc++.h>
 #define ll long long

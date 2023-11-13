@@ -25,19 +25,19 @@ using namespace std;
 int solve(int n, int x, vector<int> ar)
 {
     // i and j are head and tail of subarray
-    int res = 0, i = 0, j = 0, s = 0;
+    int res = 0, i = 0, j = 0, sm = 0;
     // handle the last subarray! (shrink from the left)
-    while (j < n || s >= x)
+    while (j < n || sm >= x)
     {
-        if (s < x)
+        if (sm < x)
         {
-            s += ar[j];
+            sm += ar[j];
             j++;
             continue;
         }
-        if (s == x)
+        if (sm == x)
             res++;
-        s -= ar[i];
+        sm -= ar[i];
         i++;
     }
     return res;

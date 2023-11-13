@@ -1,7 +1,7 @@
 /*
-You are given an array that contains each number between 1…n exactly once. 
+You are given an array that contains each number between 1…n exactly once.
 Your task is to collect the numbers from 1 to n in increasing order.
-On each round, you go through the array from left to right and collect as many numbers as possible. 
+On each round, you go through the array from left to right and collect as many numbers as possible.
 What will be the total number of rounds?
 Input
 The first line has an integer n: the array size.
@@ -22,7 +22,7 @@ Example can be broken down into the following steps:
 2 -> 3
 4 <- 3
 4 -> 5
-Number of rounds starts at 1 
+Number of rounds starts at 1
 and incremented by the #inversions of consecutive numbers (backward arrows).
 Time O(N)
 Space O(N): store indices of values 1..N
@@ -46,13 +46,13 @@ int main()
         cin >> x;
         ind[x] = i;
     }
-    ll res = 1, j = ind[1];
+    ll res = 1, prev = ind[1];
     for (ll i = 2; i < n + 1; i++)
     {
-        // Inversion: prev number found on the right
-        if (j > ind[i])
+        // Inversion: index of prev number found on the right of curr
+        if (prev > ind[i])
             res++;
-        j = ind[i];
+        prev = ind[i];
     }
     cout << res;
     return 0;

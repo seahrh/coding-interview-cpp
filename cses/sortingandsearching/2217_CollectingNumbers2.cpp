@@ -1,13 +1,13 @@
 /*
-You are given an array that contains each number between 1…n exactly once. 
+You are given an array that contains each number between 1…n exactly once.
 Your task is to collect the numbers from 1 to n in increasing order.
 On each round, you go through the array from left to right and collect as many numbers as possible.
-Given m operations that swap two numbers in the array, 
+Given m operations that swap two numbers in the array,
 your task is to report the number of rounds after each operation.
 Input
 The first line has two integers n and m: the array size and the number of operations.
 The next line has n integers x1,x2,…,xn: the numbers in the array.
-Finally, there are m lines that describe the operations. 
+Finally, there are m lines that describe the operations.
 Each line has two integers a and b: the numbers at positions a and b are swapped.
 Output
 Print m integers: the number of rounds after each swap.
@@ -26,7 +26,7 @@ Output:
 3
 4
 SOLUTION
-Number of rounds starts at 1 
+Number of rounds starts at 1
 and incremented by the #inversions of consecutive numbers (backward arrows).
 Time O(N)
 Space O(N): store indices of values 1..N
@@ -53,13 +53,13 @@ int main()
         ind[xs[i]] = i;
     }
     ll res = 1;
-    x = ind[1];
+    ll prev = ind[1];
     for (ll i = 2; i < n + 1; i++)
     {
-        // Inversion: prev number found on the right
-        if (x > ind[i])
+        // Inversion: index of prev number found on the right of curr
+        if (prev > ind[i])
             res++;
-        x = ind[i];
+        prev = ind[i];
     }
     while (m--)
     {
@@ -68,6 +68,7 @@ int main()
         swap(xs[a], xs[b]);
         // 2nd comparison is >= or <=
         // bec it can be adjacent swap e.g. swap(xs[1], xs[2])
+        // (Condition before the swap) AND (Condition after the swap where a and b are the new indices)
         if (ind[x - 1] < ind[x] && ind[x - 1] >= b)
             res++;
         if (ind[x - 1] > ind[x] && ind[x - 1] <= b)

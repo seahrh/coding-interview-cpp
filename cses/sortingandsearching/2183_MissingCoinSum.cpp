@@ -1,5 +1,5 @@
 /*
-You have n coins with positive integer values. 
+You have n coins with positive integer values.
 What is the smallest sum you cannot create using a subset of the coins?
 Input
 The first input line has an integer n: the number of coins.
@@ -20,7 +20,7 @@ dp[i] = smallest sum that cannot be created using the first i coins
 Base case: dp[0] = 1
 Recurrence: dp[i] = dp[i-1] + xs[i-1]
 Time O(N lg N): sort coins
-Space O(N)
+Space O(N): memo array
 */
 #include <bits/stdc++.h>
 #define ll long long

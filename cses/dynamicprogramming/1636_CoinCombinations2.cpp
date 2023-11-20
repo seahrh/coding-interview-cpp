@@ -1,6 +1,6 @@
 /*
 Consider a money system consisting of n coins. Each coin has a positive integer value.
-Your task is to calculate the number of distinct **ordered** ways 
+Your task is to calculate the number of distinct **ordered** ways
 you can produce a money sum x using the available coins.
 For example, if the coins are {2,3,5} and the desired sum is 9, there are 3 ways:
 2+2+5
@@ -24,7 +24,7 @@ Output:
 SOLUTION
 Bottom up DP: fill memoization table row by row.
 dp[i][x] = #ways to make sum x, using the first i coins (exploit requirement for sorted order).
-Recurrence: dp[i][x] = dp[i - 1][x] + dp[i][x - c_i]
+Recurrence: dp[i][x] = dp[i - 1][x] + dp[i][x - coins[i]]
 
 Time O(NX)
 Space O(NX)
@@ -42,7 +42,7 @@ int solve(int n, int x, vector<int> cs)
     // Start from 1st coin at index 1
     for (int i = 1; i < n + 1; i++)
     {
-        // j starts from 0 bec we need to consider zero remainder! 
+        // j starts from 0 bec we need to consider zero remainder!
         for (int j = 0; j < x + 1; j++)
         {
             // did not take ith coin (cell above)

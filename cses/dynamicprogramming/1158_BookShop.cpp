@@ -24,7 +24,7 @@ SOLUTION
 0/1 Knapsack problem
 Bottom-up DP (tabulation) works only if weights and capacity are positive integers.
 dp[i][j] = max #pages using only first i books and budget j.
-Recurring relation: dp[i][j] = max(not take ith item, take ith item)
+Recurrence: dp[i][j] = max(not take ith item, take ith item)
 Base case: dp[i][0] = 0, dp[0][j] = 0
 Time O(NB)
 Space O(NB)

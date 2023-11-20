@@ -16,8 +16,7 @@ Explanation: An optimal solution is 27→20→18→10→9→0.
 SOLUTION
 dp[x] = minimum #steps to go from x to zero.
 Recurrence: dp[x] = min of dp[x-d]
-- Try removing each digit d of x 
-
+Try removing each digit d of x.
 Time O(N)
 Space O(N)
 */
@@ -26,6 +25,7 @@ using namespace std;
 
 int solve(int n)
 {
+    // Worst case: N number of steps to bring x to zero
     vector<int> dp(n + 1, n);
     // Base case: x is already zero
     dp[0] = 0;

@@ -49,7 +49,7 @@ int solve(string a, string b)
     for (int i = 1; i < na + 1; i++)
         for (int j = 1; j < nb + 1; j++)
         {
-            // minus 1 because dp[0] means empty string!
+            // minus 1 bec dp is 1-indexed, so dp[0] means empty string!
             int r = (a[i - 1] != b[j - 1]);
             // min([add, delete, replace])
             dp[i][j] = min({dp[i][j - 1] + 1, dp[i - 1][j] + 1, dp[i - 1][j - 1] + r});

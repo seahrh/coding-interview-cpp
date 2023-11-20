@@ -40,7 +40,7 @@ vector<int> solve(int n, vector<int> xs)
         for (int j = 1; j < _max + 1; j++)
         {
             dp[i][j] = dp[i - 1][j];
-            // minus 1 to get the ith coin
+            // minus 1 to get ith coin bec dp is 1-indexed
             int remainder = j - xs[i - 1];
             if (remainder >= 0 && dp[i - 1][remainder])
                 dp[i][j] = 1;

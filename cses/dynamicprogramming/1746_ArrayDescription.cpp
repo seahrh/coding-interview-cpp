@@ -20,8 +20,8 @@ Output:
 Explanation: The arrays [2,1,2], [2,2,2] and [2,3,2] match the description.
 SOLUTION
 Bottom-up DP, fill memo table row-wise.
-dp[i][j] = #arrays matching the first i items and ith value == j.
-Base case: array has only one item
+dp[i][j] = #arrays matching the first i items of the description and ith value == j.
+Base case: description has only one item
 - If first item is zero, then it matches for all M.
 
 Recurrence: dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j] + dp[i - 1][j + 1]

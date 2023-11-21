@@ -1,4 +1,4 @@
-#include "cses/sortingandsearching/package.hpp"
+#include "src/sortingandsearching/package.hpp"
 
 vector<ll> concert_tickets(vector<ll> tickets, vector<ll> customers)
 {

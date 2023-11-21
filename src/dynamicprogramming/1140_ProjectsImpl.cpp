@@ -1,4 +1,4 @@
-#include "cses/dynamicprogramming/package.hpp"
+#include "src/dynamicprogramming/package.hpp"
 
 bool ordering(const tuple<ll, ll, ll> &l, const tuple<ll, ll, ll> &r)
 {

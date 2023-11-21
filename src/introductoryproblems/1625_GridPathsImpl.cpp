@@ -1,4 +1,4 @@
-#include "cses/introductoryproblems/package.hpp"
+#include "src/introductoryproblems/package.hpp"
 
 bool is_valid(int i, int j, vector<vector<bool>> &visited)
 {

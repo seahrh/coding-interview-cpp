@@ -1,4 +1,4 @@
-#include "cses/sortingandsearching/package.hpp"
+#include "src/sortingandsearching/package.hpp"
 
 bool second_ordering(const tuple<int, int> &left, const tuple<int, int> &right)
 {

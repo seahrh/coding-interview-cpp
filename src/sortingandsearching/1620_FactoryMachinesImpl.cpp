@@ -1,4 +1,4 @@
-#include "cses/sortingandsearching/package.hpp"
+#include "src/sortingandsearching/package.hpp"
 
 ll factory_machines(ll n, ll t, vector<ll> ks)
 {

@@ -1,4 +1,4 @@
-#include "cses/sortingandsearching/package.hpp"
+#include "src/sortingandsearching/package.hpp"
 
 ll array_division(ll n, ll k, vector<ll> xs)
 {

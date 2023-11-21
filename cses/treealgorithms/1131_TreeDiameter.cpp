@@ -3,7 +3,7 @@ You are given a tree consisting of n nodes.
 The diameter of a tree is the maximum distance between two nodes.
 Your task is to determine the diameter of the tree.
 Input
-The first input line contains an integer n: the number of nodes. 
+The first input line contains an integer n: the number of nodes.
 The nodes are numbered 1,2,…,n.
 Then there are n−1 lines describing the edges.
 Each line contains two integers a and b: there is an edge between nodes a and b.
@@ -23,14 +23,14 @@ Output:
 3
 Explanation: The diameter corresponds to the path 2→1→3→5.
 SOLUTION
-Observe that the longest path will always occur between two leaf nodes( nodes having only one edge linked).
-This can also be proved by contradiction 
-that if longest path is between two nodes and either or both of two nodes is not a leaf node 
+The longest path will always occur between two leaf nodes (nodes having only one edge linked).
+This can also be proved by contradiction:
+If longest path is between two nodes and either or both of two nodes is not a leaf node,
 then we can extend the path to get a longer path.
 
-Start DFS/BFS from a random node and then see which node is farthest from it. 
-Let the node farthest be x. It is clear that x is a leaf node. 
-Now if we start DFS/BFS from x and check farthest node from it, we will get our answer.
+Start DFS/BFS from a random node and then see which node is furthest from it.
+Let the furthest node be x. It is clear that x is a leaf node.
+Now if we start DFS/BFS from x and check furthest node from it, we will get our answer.
 Time O(V + E)
 Space O(V + E)
 
@@ -40,18 +40,19 @@ References
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 2e5 + 1;
-vector<vector<ll>> adj(max_size);
+ll N = 2e5;
+vector<vector<ll>> adj(N + 1);
 // x is the node furthest away from the start node.
 // d is the distance to x
 ll d = 0, x = 0;
 
-// dist is the current length of the path beginning from 1st node
+// dist is the current length of the path from 1st node to current node
 void dfs(ll s, ll parent, ll dist)
 {
     for (auto i : adj[s])
         if (i != parent)
             dfs(i, s, dist + 1);
+    // found longer path
     if (dist > d)
     {
         d = dist;
@@ -63,11 +64,10 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    ll n;
+    ll n, a, b;
     cin >> n;
     for (ll i = 0; i < n - 1; i++)
     {
-        ll a, b;
         cin >> a >> b;
         adj[a].push_back(b);
         adj[b].push_back(a);

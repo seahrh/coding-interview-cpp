@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "cses/sortingandsearching/package.hpp"
+#include "src/sortingandsearching/package.hpp"
 
 TEST(FactoryMachines, Test11)
 {

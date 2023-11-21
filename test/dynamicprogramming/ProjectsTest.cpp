@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "cses/dynamicprogramming/package.hpp"
+#include "src/dynamicprogramming/package.hpp"
 
 TEST(Projects, Test1)
 {

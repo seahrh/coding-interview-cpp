@@ -1,4 +1,4 @@
-[![default](https://github.com/seahrh/cses-problem-set/actions/workflows/ccpp.yml/badge.svg)](https://github.com/seahrh/cses-problem-set/actions/workflows/ccpp.yml)
+[![default](https://github.com/seahrh/coding-interview-cpp/actions/workflows/ccpp.yml/badge.svg)](https://github.com/seahrh/coding-interview-cpp/actions/workflows/ccpp.yml)
 
 CSES Problem Set
 ====================

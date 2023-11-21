@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "cses/introductoryproblems/package.hpp"
+#include "src/introductoryproblems/package.hpp"
 
 TEST(GridPaths, Example1)
 {

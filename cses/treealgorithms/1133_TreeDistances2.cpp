@@ -3,7 +3,7 @@ You are given a tree consisting of n nodes.
 Your task is to determine for each node the sum of the distances from the node to all other nodes.
 Input
 The first input line contains an integer n: the number of nodes. The nodes are numbered 1,2,…,n.
-Then there are n−1 lines describing the edges. 
+Then there are n−1 lines describing the edges.
 Each line contains two integers a and b: there is an edge between nodes a and b.
 Output
 Print n integers: for each node 1,2,…,n, the sum of the distances.
@@ -20,11 +20,11 @@ Input:
 Output:
 6 9 5 8 8
 SOLUTION
-DP on trees, rerooting technique
+DP on trees, rerooting technique, 2 rounds of DFS.
 DFS 1st round:
 dp[i] = sum of distances from i to all other nodes in **subtree rooted at i**
 c[i] = number of nodes in **subtree rooted at i**
-Recurrence relation: 
+Recurrence relation:
 for i in children:
     dp[parent] += dp[i] + c[i]  (add one for each node in subtree rooted at child)
 DFS 2nd round
@@ -34,10 +34,11 @@ Redefine dp[i] = sum of distances from i to all other nodes
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 2e5 + 1;
-vector<vector<ll>> adj(max_size);
-vector<ll> dp(max_size);
-vector<ll> c(max_size);
+// nodes are 1-indexed
+ll N = 2e5 + 1;
+vector<vector<ll>> adj(N);
+vector<ll> dp(N);
+vector<ll> c(N);
 
 void dfs1(ll s, ll parent)
 {
@@ -60,10 +61,10 @@ void dfs2(ll s, ll parent)
         // cut out contribution from subtree rooted at s
         // "above" is the subtree rooted at parent, minus the subtree rooted at child s.
         ll above = dp[parent] - dp[s] - c[s];
-        // size of "above" = c[parent] - c[s] 
+        // size of "above" = c[parent] - c[s]
         dp[s] += above + c[parent] - c[s];
         // processing is done before traversing down the tree from node 1
-        // so need to update size of subtree! 
+        // so need to update size of subtree!
         // as this value will be used in later computation (size of parent)
         c[s] += c[parent] - c[s];
     }

@@ -2,9 +2,9 @@
 You are given a tree consisting of n nodes.
 Your task is to determine for each node the maximum distance to another node.
 Input
-The first input line contains an integer n: the number of nodes. 
+The first input line contains an integer n: the number of nodes.
 The nodes are numbered 1,2,…,n.
-Then there are n−1 lines describing the edges. 
+Then there are n−1 lines describing the edges.
 Each line contains two integers a and b: there is an edge between nodes a and b.
 Output
 Print n integers: for each node 1,2,…,n, the maximum distance to another node.
@@ -27,18 +27,18 @@ Three rounds of DFS
    Compute distance from a (origin=0) to every other node.
 3. Starting from node b, compute distance from b (origin=1) to every other node
 
-
 References
 - https://usaco.guide/problems/cses-1132-tree-distances-i/solution
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 2e5 + 1;
-vector<vector<ll>> adj(max_size);
+// nodes are 1-indexed
+ll N = 2e5 + 1;
+vector<vector<ll>> adj(N);
 // dist[i][0] = distance from 1st leaf node to node i
 // dist[i][1] = distance from 2nd leaf node to node i
-vector<vector<ll>> dist(max_size, vector<ll>(2));
+vector<vector<ll>> dist(N, vector<ll>(2));
 
 // return node furthest away from origin (either 1st or 2nd leaf node)
 ll dfs(ll s, ll parent, ll d, ll origin)

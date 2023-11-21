@@ -30,9 +30,10 @@ Space O(N^2)
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll N = 2e5;
-vector<vector<ll>> adj(N + 1);
-vector<bool> vis(N + 1);
+// nodes are 1-indexed
+ll N = 2e5 + 1;
+vector<vector<ll>> adj(N);
+vector<bool> vis(N);
 ll res = 0;
 
 void dfs(ll s, ll parent)

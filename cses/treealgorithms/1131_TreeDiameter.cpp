@@ -40,8 +40,9 @@ References
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll N = 2e5;
-vector<vector<ll>> adj(N + 1);
+// nodes are 1-indexed
+ll N = 2e5 + 1;
+vector<vector<ll>> adj(N);
 // x is the node furthest away from the start node.
 // d is the distance to x
 ll d = 0, x = 0;

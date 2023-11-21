@@ -15,18 +15,20 @@ Input:
 Output:
 4 1 1 0 0
 SOLUTION
-Directed acyclic graph where edge represents "SubordinateOf". 
+Directed acyclic graph where edge represents "SubordinateOf".
 dp[i] = #subordinates of employee i
+Recurrence: dp[self] += dp[child] + 1
 Time O(N)
 Space O(N): each employee can have at most one boss
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll N = 2e5;
-// no need to mark visited bec no cycles
-vector<vector<ll>> adj(N + 1);
-vector<ll> dp(N + 1);
+// nodes are 1-indexed
+ll N = 2e5 + 1;
+// no need to mark visited bec DAG has no cycles
+vector<vector<ll>> adj(N);
+vector<ll> dp(N);
 
 void dfs(ll s)
 {

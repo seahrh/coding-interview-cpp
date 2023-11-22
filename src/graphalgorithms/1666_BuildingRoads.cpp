@@ -1,11 +1,11 @@
 /*
-Byteland has n cities, and m roads between them. 
+Byteland has n cities, and m roads between them.
 The goal is to construct new roads so that there is a route between any two cities.
 Your task is to find out the minimum number of roads required, and also determine which roads should be built.
 Input
-The first input line has two integers n and m: the number of cities and roads. 
+The first input line has two integers n and m: the number of cities and roads.
 The cities are numbered 1,2,…,n.
-After that, there are m lines describing the roads. 
+After that, there are m lines describing the roads.
 Each line has two integers a and b: there is a road between those cities.
 A road always connects two different cities, and there is at most one road between any two cities.
 Output
@@ -32,9 +32,9 @@ Space O(N + M)
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 1e5 + 1;
-vector<bool> vis(max_size);
-vector<vector<ll>> adj(max_size);
+ll N = 1e5 + 1;
+vector<bool> vis(N);
+vector<vector<ll>> adj(N);
 
 void dfs(ll s)
 {
@@ -69,6 +69,6 @@ int main()
     }
     cout << (ll)res.size() - 1 << endl;
     for (ll i = 0; i < (ll)res.size() - 1; i++)
-        cout << res[i] << " " << res[i + 1] << endl; 
+        cout << res[i] << " " << res[i + 1] << endl;
     return 0;
 }

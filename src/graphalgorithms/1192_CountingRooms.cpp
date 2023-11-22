@@ -25,7 +25,7 @@ Time O(NM)
 Space O(NM)
 References
 - https://github.com/mrsac7/CSES-Solutions/blob/master/src/1192%20-%20Counting%20Rooms.cpp
-- https://japlofficial.github.io/posts/cses/counting_rooms/1.htm 
+- https://japlofficial.github.io/posts/cses/counting_rooms/1.htm
 */
 #include <bits/stdc++.h>
 #define ll long long
@@ -59,15 +59,16 @@ int main()
             grid[i][j] = row[j];
             if (grid[i][j] == '#')
                 continue;
+            // convert grid 2D coordinates to 1D index of adjacency list
             ll k = i * m + j;
-            // top and bottom
-            if (i >= 1 && grid[i - 1][j] != '#')
+            // add edge if top cell is floor
+            if (i >= 1 && grid[i - 1][j] == '.')
             {
                 adj[k].push_back(k - m);
                 adj[k - m].push_back(k);
             }
-            // left and right
-            if (j >= 1 && grid[i][j - 1] != '#')
+            // add edge if left cell is floor
+            if (j >= 1 && grid[i][j - 1] == '.')
             {
                 adj[k - 1].push_back(k);
                 adj[k].push_back(k - 1);
@@ -78,9 +79,9 @@ int main()
     for (ll k = 0; k < n * m; k++)
     {
         ll i = k / m, j = k % m;
+        // explore the rest of the room and mark as visited
         if (!vis[k] && grid[i][j] == '.')
         {
-            // explore the rest of the room and mark as visited
             dfs(k);
             res++;
         }

@@ -1,12 +1,12 @@
 /*
-Your task is to find the k shortest flight routes from Syrjälä to Metsälä. 
+Your task is to find the k shortest flight routes from Syrjälä to Metsälä.
 A route can visit the same city several times.
 Note that there can be several routes with the same price and each of them should be considered (see the example).
 Input
-The first input line has three integers n, m, and k: the number of cities, the number of flights, and the parameter k. 
+The first input line has three integers n, m, and k: the number of cities, the number of flights, and the parameter k.
 The cities are numbered 1,2,…,n. City 1 is Syrjälä, and city n is Metsälä.
-After this, the input has m lines describing the flights. 
-Each line has three integers a, b, and c: a flight begins at city a, ends at city b, and its price is c. 
+After this, the input has m lines describing the flights.
+Each line has three integers a, b, and c: a flight begins at city a, ends at city b, and its price is c.
 All flights are one-way flights.
 You may assume that there are at least k distinct routes from Syrjälä to Metsälä.
 Output
@@ -37,13 +37,13 @@ References
 */
 #include <bits/stdc++.h>
 #define ll long long
-#define tll tuple<ll, ll>
+#define pai tuple<ll, ll>
 using namespace std;
-const ll max_size = 2e5 + 1;
+const ll N = 2e5 + 1;
 // 2-tuple (to_node, weight)
-vector<vector<tll>> adj(max_size);
-// vis[i] = #shortest paths found to node i
-vector<ll> vis(max_size);
+vector<vector<pai>> adj(N);
+// vis[i] = #shortest paths to node i
+vector<ll> vis(N);
 
 int main()
 {
@@ -56,7 +56,8 @@ int main()
         cin >> u >> v >> w;
         adj[u].push_back({v, w});
     }
-    // 2-tuple (distance to selected node, selected node)
+    // 2-tuple (distance from start node to end node, end node)
+    // `greater` specifies min heap
     priority_queue<tll, vector<tll>, greater<tll>> minh;
     minh.push({0, 1});
     while (!minh.empty() && vis[n] < k)
@@ -67,7 +68,7 @@ int main()
         vis[u]++;
         if (u == n)
             cout << d << " ";
-        // Continue to relax edges for the kth path
+        // Continue to relax edges for the k-th path
         if (vis[u] <= k)
         {
             for (auto [v, w] : adj[u])

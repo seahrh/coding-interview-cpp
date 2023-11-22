@@ -1,17 +1,17 @@
 /*
-Your task is to find a minimum-price flight route from Syrjälä to Metsälä. 
-You have one discount coupon, using which you can halve the price of any single flight during the route. 
+Your task is to find a minimum-price flight route from Syrjälä to Metsälä.
+You have one discount coupon, using which you can halve the price of any single flight during the route.
 However, you can only use the coupon once.
 Input
-The first input line has two integers n and m: the number of cities and flight connections. 
+The first input line has two integers n and m: the number of cities and flight connections.
 The cities are numbered 1,2,…,n. City 1 is Syrjälä, and city n is Metsälä.
-After this there are m lines describing the flights. 
-Each line has three integers a, b, and c: a flight begins at city a, ends at city b, and its price is c. 
+After this there are m lines describing the flights.
+Each line has three integers a, b, and c: a flight begins at city a, ends at city b, and its price is c.
 Each flight is unidirectional.
 You can assume that it is always possible to get from Syrjälä to Metsälä.
 Output
 Print one integer: the price of the cheapest route from Syrjälä to Metsälä.
-When you use the discount coupon for a flight whose price is x, 
+When you use the discount coupon for a flight whose price is x,
 its price becomes ⌊x/2⌋ (it is rounded down to an integer).
 Constraints
 2≤n≤10^5
@@ -30,30 +30,33 @@ Output:
 SOLUTION
 Dijkstra single source shortest path; no negative weights.
 Two rounds from starting nodes 1 and n.
-min_cost = dist(1,u) + discount(u,v) + dist(v,n)
+Given an edge between u and v,
+min_cost = dist(1,u) + dist(n,v) + discount(u,v)
 
 References
 - https://usaco.guide/problems/cses-1195-flight-discount/solution
 */
 #include <bits/stdc++.h>
 #define ll long long
-#define tll tuple<ll, ll>
+#define pai tuple<ll, ll>
 using namespace std;
-const ll maxn = 1e5 + 1;
-const ll inf = 1e18;
+const ll N = 1e5 + 1;
+const ll INF = 1e18;
+// undirected graph: keep adj lists in both directions
 // 2-tuple (to_node, weight)
-vector<vector<tll>> adj1(maxn);
-vector<vector<tll>> adj2(maxn);
+vector<vector<pai>> adj1(N);
+vector<vector<pai>> adj2(N);
 
-vector<ll> dij(ll s, vector<vector<tll>> adj)
+// find shortest path from start node to all other nodes
+// returns dist[i] = shortest distance from start node s to i
+vector<ll> dij(ll s, vector<vector<pai>> adj)
 {
-    vector<bool> vis(maxn);
-    // dis[i] = distance from starting node (1 or n) to node i
-    vector<ll> dis(maxn, inf);
+    vector<bool> vis(N);
+    vector<ll> dis(N, INF);
     dis[s] = 0;
+    // 2-tuple (distance from start node to end node, end node)
     // `greater` specifies min heap
-    // 2-tuple (distance to selected node, selected node)
-    priority_queue<tll, vector<tll>, greater<tll>> minh;
+    priority_queue<pai, vector<pai>, greater<pai>> minh;
     minh.push({0, s});
     while (!minh.empty())
     {
@@ -84,14 +87,14 @@ int main()
         adj1[u].push_back({v, w});
         adj2[v].push_back({u, w});
     }
-    // distance from node 1 to i
+    // shortest distance from node 1 to i
     vector<ll> dis1 = dij(1, adj1);
     // shortest distance from node n to i
     vector<ll> dis2 = dij(n, adj2);
-    ll mn = inf;
+    ll res = INF;
     for (u = 1; u < n; u++)
         for (auto [v, w] : adj1[u])
-            mn = min(mn, dis1[u] + dis2[v] + w / 2);
-    cout << mn;
+            res = min(res, dis1[u] + dis2[v] + w / 2);
+    cout << res;
     return 0;
 }

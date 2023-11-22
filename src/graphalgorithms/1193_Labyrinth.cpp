@@ -7,8 +7,8 @@ Then there are n lines of m characters describing the labyrinth.
 Each character is . (floor), # (wall), A (start), or B (end). There is exactly one A and one B in the input.
 Output
 First print "YES", if there is a path, and "NO" otherwise.
-If there is a path, print the length of the shortest such path 
-and its description as a string consisting of characters L (left), R (right), U (up), and D (down). 
+If there is a path, print the length of the shortest such path
+and its description as a string consisting of characters L (left), R (right), U (up), and D (down).
 You can print any valid solution.
 Constraints
 1≤n,m≤1000
@@ -55,7 +55,6 @@ void bfs(ll s)
             if (vis[i])
                 continue;
             // process the node before enqueue
-            // queue is for exploring neighbour nodes
             vis[i] = 1;
             parent[i] = curr;
             q.push(i);
@@ -79,18 +78,19 @@ int main()
             grid[i][j] = row[j];
             if (grid[i][j] == '#')
                 continue;
+            // convert grid 2D coordinates to 1D index of adjacency list
             ll k = i * m + j;
             if (grid[i][j] == 'A')
                 start = k;
             if (grid[i][j] == 'B')
                 end = k;
-            // top and bottom
+            // add edge if top cell is floor
             if (i >= 1 && grid[i - 1][j] != '#')
             {
                 adj[k].push_back(k - m);
                 adj[k - m].push_back(k);
             }
-            // left and right
+            // add edge if left cell is floor
             if (j >= 1 && grid[i][j - 1] != '#')
             {
                 adj[k - 1].push_back(k);
@@ -104,6 +104,8 @@ int main()
         cout << "NO";
         return 0;
     }
+    // trace the path in reverse order using parent relationship
+    // do not append start node to the list
     vector<ll> path;
     ll k = end;
     while (k != start)
@@ -114,12 +116,15 @@ int main()
     cout << "YES" << endl;
     cout << path.size() << endl;
     string res = "";
+    // i and j are the 2D grid coordinates of current node
+    // a and b are the 2D grid coordinates of next node
     ll i = start / m;
     ll j = start % m;
     for (k = (ll)path.size() - 1; k >= 0; k--)
     {
         ll a = path[k] / m;
         ll b = path[k] % m;
+        // same row, so move either left or right
         if (i == a)
         {
             if (b > j)

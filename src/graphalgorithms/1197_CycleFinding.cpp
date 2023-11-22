@@ -1,13 +1,13 @@
 /*
-You are given a directed graph, 
+You are given a directed graph,
 and your task is to find out if it contains a negative cycle, and also give an example of such a cycle.
 Input
-The first input line has two integers n and m: the number of nodes and edges. 
+The first input line has two integers n and m: the number of nodes and edges.
 The nodes are numbered 1,2,…,n.
-After this, the input has m lines describing the edges. 
+After this, the input has m lines describing the edges.
 Each line has three integers a, b, and c: there is an edge from node a to node b whose length is c.
 Output
-If the graph contains a negative cycle, print first "YES", and then the nodes in the cycle in their correct order. 
+If the graph contains a negative cycle, print first "YES", and then the nodes in the cycle in their correct order.
 If there are several negative cycles, you can print any of them. If there are no negative cycles, print "NO".
 Constraints
 1≤n≤2500
@@ -36,15 +36,17 @@ References
 */
 #include <bits/stdc++.h>
 #define ll long long
-#define t3 tuple<ll, ll, ll>
+#define tri tuple<ll, ll, ll>
 using namespace std;
-const ll maxn = 2501;
+const ll N = 2501;
 // Cannot use LLONG_MAX due to overflow
-const ll inf = 1e18;
-vector<ll> dis(maxn, inf);
-vector<ll> par(maxn);
+const ll INF = 1e18;
+// dis[i] = shortest distance from node 1 to i
+vector<ll> dis(N, INF);
+// parent to trace path in reverse order
+vector<ll> par(N);
 // edges
-vector<t3> es;
+vector<tri> es;
 
 int main()
 {
@@ -65,9 +67,9 @@ int main()
                 dis[v] = dis[u] + w;
                 par[v] = u;
             }
-    // Detects negative cycle
+    // Detects negative cycle reachable from source node u
+    // there should not be a shorter path to v at this point
     for (auto [u, v, w] : es)
-        // If there is a negative cycle reachable from source node, then:
         if (dis[v] > dis[u] + w)
         {
             cout << "YES" << endl;
@@ -85,8 +87,8 @@ int main()
             for (auto p : path)
             {
                 cout << p << " ";
-                if (p == head)
-                    break;
+                // if (p == head)
+                //     break;
             }
             return 0;
         }

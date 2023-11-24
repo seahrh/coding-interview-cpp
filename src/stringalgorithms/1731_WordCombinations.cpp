@@ -24,7 +24,7 @@ Output:
 Explanation: The possible ways are ab+ab+c and abab+c.
 SOLUTION
 dp[i] = number of word combinations for suffix s[i:]
-Fill dp array from the right.
+Fill memo array from the right.
 Base case: dp[n] = 1; always possible to match zero-length string
 Recurrence: If word ending at position i matches, then dp[i] += dp[i+1]
 */
@@ -32,12 +32,12 @@ Recurrence: If word ending at position i matches, then dp[i] += dp[i+1]
 #define ll long long
 using namespace std;
 const ll mod = 1e9 + 7;
-ll max_size = 1e6;
-vector<vector<ll>> trie(max_size, vector<ll>(26));
-vector<bool> stop(max_size);
+const ll L = 1e6;
+vector<vector<ll>> trie(L, vector<ll>(26));
+vector<bool> stop(L);
 vector<ll> dp(5001);
 
-// Adds node to trie
+// Add node to trie
 ll add(string s, ll new_node)
 {
     ll node = 0;
@@ -53,20 +53,20 @@ ll add(string s, ll new_node)
     return new_node;
 }
 
-// Returns #word combinations found for suffix s[head:]
+// Return #word combinations found for suffix s[head:]
 ll wc(string s, ll head)
 {
-    ll node = 0, ans = 0;
+    ll node = 0, res = 0;
     for (ll i = head; i < (ll)s.size(); i++)
     {
         // Stop DFS of trie if suffix cannot be completely matched.
         if (!trie[node][s[i] - 'a'])
-            return ans;
+            return res;
         node = trie[node][s[i] - 'a'];
         if (stop[node])
-            (ans += dp[i + 1]) %= mod;
+            (res += dp[i + 1]) %= mod;
     }
-    return ans;
+    return res;
 }
 
 ll solve(string s)

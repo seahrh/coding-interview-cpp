@@ -1,16 +1,16 @@
 /*
-Byteland has n cities and m roads between them. 
-Your task is to design a round trip that begins in a city, 
-goes through two or more other cities, and finally returns to the starting city. 
+Byteland has n cities and m roads between them.
+Your task is to design a round trip that begins in a city,
+goes through two or more other cities, and finally returns to the starting city.
 Every intermediate city on the route has to be distinct.
 Input
-The first input line has two integers n and m: the number of cities and roads. 
+The first input line has two integers n and m: the number of cities and roads.
 The cities are numbered 1,2,…,n.
-Then, there are m lines describing the roads. 
+Then, there are m lines describing the roads.
 Each line has two integers a and b: there is a road between those cities.
 Every road is between two different cities, and there is at most one road between any two cities.
 Output
-First print an integer k: the number of cities on the route. 
+First print an integer k: the number of cities on the route.
 Then print k cities in the order they will be visited. You can print any valid solution.
 If there are no solutions, print "IMPOSSIBLE".
 Constraints
@@ -37,9 +37,10 @@ Space O(V+E): adjacency list
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 2e5 + 1;
-vector<vector<ll>> adj(max_size);
-vector<ll> vis(max_size);
+const ll N = 2e5 + 1;
+vector<vector<ll>> adj(N);
+// 0=Not visited, 1=Exploring subtree, 2=Done subtree
+vector<ll> vis(N);
 deque<ll> path;
 
 // returns True if a cycle is found
@@ -91,6 +92,7 @@ int main()
             while (path.front() != path.back())
                 path.pop_front();
             ll len = (ll)path.size();
+            // at most one road between any two cities
             if (len >= 4)
             {
                 cout << len << endl;

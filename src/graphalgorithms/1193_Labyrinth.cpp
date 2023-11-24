@@ -26,7 +26,7 @@ YES
 LDDRRRRRU
 SOLUTION
 Find all possible paths from starting position using BFS.
-if all of the edges in a graph are unweighted (or the same weight)
+If all of the edges in a graph are unweighted (or the same weight),
 then the first time a node is visited is the shortest path to that node from the source node.
 Time O(NM)
 Space O(NM)

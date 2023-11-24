@@ -1,16 +1,16 @@
 /*
-Syrjälä's network has n computers and m connections. 
-Your task is to find out if Uolevi can send a message to Maija, 
+Syrjälä's network has n computers and m connections.
+Your task is to find out if Uolevi can send a message to Maija,
 and if it is possible, what is the minimum number of computers on such a route.
 Input
 The first input line has two integers n and m: the number of computers and connections.
 The computers are numbered 1,2,…,n. Uolevi's computer is 1 and Maija's computer is n.
-Then, there are m lines describing the connections. 
+Then, there are m lines describing the connections.
 Each line has two integers a and b: there is a connection between those computers.
 Every connection is between two different computers, and there is at most one connection between any two computers.
 Output
-If it is possible to send a message, 
-first print k: the minimum number of computers on a valid route. 
+If it is possible to send a message,
+first print k: the minimum number of computers on a valid route.
 After this, print an example of such a route. You can print any valid solution.
 If there are no routes, print "IMPOSSIBLE".
 Constraints
@@ -36,10 +36,10 @@ Space O(N + M)
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 1e5 + 1;
-vector<bool> vis(max_size);
-vector<vector<ll>> adj(max_size);
-vector<ll> parent(max_size);
+const ll N = 1e5 + 1;
+vector<bool> vis(N);
+vector<vector<ll>> adj(N);
+vector<ll> parent(N);
 
 void bfs(ll s)
 {

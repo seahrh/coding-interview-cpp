@@ -58,7 +58,7 @@ int main()
     }
     // 2-tuple (distance from start node to end node, end node)
     // `greater` specifies min heap
-    priority_queue<tll, vector<tll>, greater<tll>> minh;
+    priority_queue<pai, vector<pai>, greater<pai>> minh;
     minh.push({0, 1});
     while (!minh.empty() && vis[n] < k)
     {

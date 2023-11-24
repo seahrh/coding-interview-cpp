@@ -1,15 +1,15 @@
 /*
-Byteland has n cities and m flight connections. 
-Your task is to design a round trip that begins in a city, goes through one or more other cities, 
+Byteland has n cities and m flight connections.
+Your task is to design a round trip that begins in a city, goes through one or more other cities,
 and finally returns to the starting city. Every intermediate city on the route has to be distinct.
 Input
-The first input line has two integers n and m: the number of cities and flights. 
+The first input line has two integers n and m: the number of cities and flights.
 The cities are numbered 1,2,…,n.
-Then, there are m lines describing the flights. 
-Each line has two integers a and b: there is a flight connection from city a to city b. 
+Then, there are m lines describing the flights.
+Each line has two integers a and b: there is a flight connection from city a to city b.
 All connections are one-way flights from a city to another city.
 Output
-First print an integer k: the number of cities on the route. 
+First print an integer k: the number of cities on the route.
 Then print k cities in the order they will be visited. You can print any valid solution.
 If there are no solutions, print "IMPOSSIBLE".
 Constraints
@@ -35,9 +35,10 @@ Space O(V+E): adjacency list
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-const ll maxn = 1e5 + 1;
-vector<vector<ll>> adj(maxn);
-vector<ll> vis(maxn);
+const ll N = 1e5 + 1;
+vector<vector<ll>> adj(N);
+// 0=Not visited, 1=Exploring subtree, 2=Done subtree
+vector<ll> vis(N);
 deque<ll> path;
 
 // returns True if a cycle is found

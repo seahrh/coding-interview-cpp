@@ -1,11 +1,11 @@
 /*
-You have to complete n courses. 
-There are m requirements of the form "course a has to be completed before course b". 
+You have to complete n courses.
+There are m requirements of the form "course a has to be completed before course b".
 Your task is to find an order in which you can complete the courses.
 Input
-The first input line has two integers n and m: the number of courses and requirements. 
+The first input line has two integers n and m: the number of courses and requirements.
 The courses are numbered 1,2,…,n.
-After this, there are m lines describing the requirements. 
+After this, there are m lines describing the requirements.
 Each line has two integers a and b: course a has to be completed before course b.
 Output
 Print an order in which you can complete the courses. You can print any valid order that includes all the courses.
@@ -24,7 +24,7 @@ Output:
 3 4 1 5 2
 SOLUTION
 Tour where all n nodes must be visited.
-DFS to do 2 things
+DFS does 2 things
 - Detect cycle (ensure it is a DAG)
 - Topological sort
 
@@ -34,12 +34,12 @@ References
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-const ll maxn = 1e5 + 1;
-vector<vector<ll>> adj(maxn);
-vector<bool> vis(maxn);
-// marker for cycle finding
-vector<ll> mar(maxn);
-vector<ll> ord;
+const ll N = 1e5 + 1;
+vector<vector<ll>> adj(N);
+vector<bool> vis(N);
+// marker for cycle finding: 0=Not visited, 1=Exploring subtree, 2=Done subtree
+vector<ll> mar(N);
+vector<ll> path;
 
 // Topological sort on DAG
 void dfs(ll s)
@@ -49,24 +49,23 @@ void dfs(ll s)
     vis[s] = 1;
     for (auto i : adj[s])
         dfs(i);
-    // All ancestor nodes (dependencies) have been added to list
+    // All ancestor nodes (predecessors) have been added to list
     // list is already in sorted order (no need to reverse)
-    ord.push_back(s);
+    path.push_back(s);
 }
 
 bool cycle(ll s)
 {
-    // temporary mark: node visited but not ancestors
     mar[s] = 1;
     for (auto i : adj[s])
     {
+        // cycle is found downstream
         if (!mar[i] && cycle(i))
             return 1;
         // return to a visited node; cycle found
         if (mar[i] == 1)
             return 1;
     }
-    // permanent mark: no cycle found in this node and all its ancestors
     mar[s] = 2;
     return 0;
 }
@@ -90,10 +89,11 @@ int main()
             cout << "IMPOSSIBLE";
             return 0;
         }
+        // Topological sort on this connected component
         if (!vis[i])
             dfs(i);
     }
-    for (auto o : ord)
-        cout << o << " ";
+    for (auto p : path)
+        cout << p << " ";
     return 0;
 }

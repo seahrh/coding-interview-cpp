@@ -1,16 +1,16 @@
 /*
-There are n pupils in Uolevi's class, and m friendships between them. 
-Your task is to divide the pupils into two teams in such a way that no two pupils in a team are friends. 
+There are n pupils in Uolevi's class, and m friendships between them.
+Your task is to divide the pupils into two teams in such a way that no two pupils in a team are friends.
 You can freely choose the sizes of the teams.
 Input
-The first input line has two integers n and m: the number of pupils and friendships. 
+The first input line has two integers n and m: the number of pupils and friendships.
 The pupils are numbered 1,2,…,n.
-Then, there are m lines describing the friendships. 
+Then, there are m lines describing the friendships.
 Each line has two integers a and b: pupils a and b are friends.
-Every friendship is between two different pupils. 
+Every friendship is between two different pupils.
 You can assume that there is at most one friendship between any two pupils.
 Output
-Print an example of how to build the teams. 
+Print an example of how to build the teams.
 For each pupil, print "1" or "2" depending on to which team the pupil will be assigned. You can print any valid team.
 If there are no solutions, print "IMPOSSIBLE".
 Constraints
@@ -31,12 +31,13 @@ BFS to set the colors of bipartite graph
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll max_size = 2e5 + 1;
-vector<vector<ll>> adj(max_size);
-vector<bool> vis(max_size);
-// col[i] = colour of node i
-vector<ll> col(max_size);
+const ll N = 2e5 + 1;
+vector<vector<ll>> adj(N);
+vector<bool> vis(N);
+// col[i] = colour of node i. 0=Unassigned, 1=Team1, 2=Team2
+vector<ll> col(N);
 
+// returns True if bipartite graph is possible from source node
 bool bfs(ll s)
 {
     vis[s] = 1;
@@ -49,7 +50,7 @@ bool bfs(ll s)
         q.pop_front();
         for (auto i : adj[s])
         {
-            // must preserve bipartite property
+            // Preserve bipartite property
             // terminate if color of child is set and equals parent's color
             if (col[i] == col[s])
                 return 0;

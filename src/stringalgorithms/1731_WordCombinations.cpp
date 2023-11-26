@@ -25,7 +25,8 @@ Explanation: The possible ways are ab+ab+c and abab+c.
 SOLUTION
 dp[i] = number of word combinations for suffix s[i:]
 Fill memo array from the right.
-Base case: dp[n] = 1; always possible to match zero-length string
+Base case: dp[n] = 1
+By definition, always possible to match zero-length string.
 Recurrence: If word ending at position i matches, then dp[i] += dp[i+1]
 */
 #include <bits/stdc++.h>
@@ -69,18 +70,6 @@ ll wc(string s, ll head)
     return res;
 }
 
-ll solve(string s)
-{
-
-    ll n = (ll)s.size();
-    // Base case: always possible to match zero-length string
-    dp[n] = 1;
-    // all suffixes of s since we are filling dp from right to left
-    for (ll i = n - 1; i >= 0; i--)
-        dp[i] = wc(s, i);
-    return dp[0];
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -96,6 +85,12 @@ int main()
         cin >> x;
         node = add(x, node);
     }
-    cout << solve(s);
+    ll n = (ll)s.size();
+    // Base case: always possible to match zero-length string
+    dp[n] = 1;
+    // all suffixes of s bec we fill dp from right to left
+    for (ll i = n - 1; i >= 0; i--)
+        dp[i] = wc(s, i);
+    cout << dp[0];
     return 0;
 }

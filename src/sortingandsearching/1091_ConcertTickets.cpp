@@ -26,60 +26,44 @@ Output:
 -1
 See https://cses.fi/problemset/task/1091
 SOLUTION
-Requirement: Sell the most expensive ticket that meets the customer's budget
+Sell the most expensive ticket that customer can afford.
 Time O((N + M) lg N)
-Space O(N): store the ticket prices in a SortedSet.
+Space O(N): store ticket prices in a SortedList (multiset)
 */
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
 
-vector<ll> solve(vector<ll> tickets, vector<ll> customers)
-{
-    vector<ll> res;
-    // sort price in descending order!
-    multiset<ll, greater<int>> sortedTickets;
-    for (auto t = begin(tickets); t != end(tickets); ++t)
-    {
-        sortedTickets.insert(*t);
-    }
-    for (auto c = begin(customers); c != end(customers); ++c)
-    {
-        // get first ticket that costs <= budget
-        auto t = sortedTickets.lower_bound(*c);
-        if (t == sortedTickets.end())
-        {
-            res.push_back(-1);
-            continue;
-        }
-        res.push_back(*t);
-        sortedTickets.erase(t);
-    }
-    return res;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    ll n, m, customer, ticket;
+    ll n, m, i, x;
     cin >> n >> m;
-    vector<ll> tickets;
+    // sort tickets by price in descending order!
+    multiset<ll, greater<ll>> bst;
     vector<ll> customers;
-    while (n--)
+    for (i = 0; i < n; i++)
     {
-        cin >> ticket;
-        tickets.push_back(ticket);
+        cin >> x;
+        bst.insert(x);
     }
-    while (m--)
+    for (i = 0; i < m; i++)
     {
-        cin >> customer;
-        customers.push_back(customer);
+        cin >> x;
+        customers.push_back(x);
     }
-    vector<ll> res = solve(tickets, customers);
-    for (auto r = begin(res); r != end(res); ++r)
+    for (auto c : customers)
     {
-        cout << *r << endl;
+        ll res = -1;
+        // the most expensive ticket that customer can afford
+        auto t = bst.lower_bound(c);
+        if (t != bst.end())
+        {
+            res = *t;
+            bst.erase(t);
+        }
+        cout << res << endl;
     }
     return 0;
 }

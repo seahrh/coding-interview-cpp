@@ -39,6 +39,7 @@ int main()
     vector<int> cs(n);
     for (int i = 0; i < n; i++)
         cin >> cs[i];
+    // optimization for checking all coins <= current target
     sort(cs.begin(), cs.end());
     int impossible = x + 1;
     vector<int> dp(x + 1, impossible);
@@ -46,7 +47,7 @@ int main()
     dp[0] = 0;
     for (int i = cs[0]; i < x + 1; i++)
         // consider all coins <= current target
-        // ensure i - cs[j] >= 0 to prevent IndexOutOfBounds!
+        // also checks (i - cs[j] >= 0) to prevent IndexOutOfBounds!
         for (int j = 0; j < n; j++)
         {
             if (cs[j] > i)

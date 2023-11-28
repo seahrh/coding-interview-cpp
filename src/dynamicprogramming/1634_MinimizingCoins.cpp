@@ -43,7 +43,7 @@ int main()
     sort(cs.begin(), cs.end());
     int impossible = x + 1;
     vector<int> dp(x + 1, impossible);
-    // Base case: coin reduces sum to zero
+    // Base case: last coin reduces sum to zero
     dp[0] = 0;
     for (int i = cs[0]; i < x + 1; i++)
         // consider all coins <= current target

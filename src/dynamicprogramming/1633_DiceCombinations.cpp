@@ -20,38 +20,31 @@ Output:
 SOLUTION
 Bottom up DP: adding a die roll to previous entries
 f[x] = f[x-1] + f[x-2] + f[x-3] + f[x-4] + f[x-5] + f[x-6]
+Base case: always possible to make sum zero
+dp[0] = 1
 Time O(N)
 Space O(N): memo array
 */
 #include <bits/stdc++.h>
 using namespace std;
-const int mod = 1e9 + 7;
-
-int solve(int n)
-{
-    vector<int> dp(n + 1);
-    // required to initialize f(1) through f(6); single die roll
-    dp[0] = 1;
-    for (int i = 1; i < n + 1; i++)
-    {
-        for (int j = 1; j <= 6; j++)
-        {
-            // Prevent ArrayIndexOutOfBounds
-            if (i - j >= 0)
-            {
-                (dp[i] += dp[i - j]) %= mod;
-            }
-        }
-    }
-    return dp[n];
-}
+#define ll long long
+const ll mod = 1e9 + 7;
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int n;
+    ll n, i, j;
     cin >> n;
-    cout << solve(n);
+    vector<ll> dp(n + 1);
+    dp[0] = 1;
+    for (i = 1; i < n + 1; i++)
+    {
+        for (j = 1; j <= 6; j++)
+            // Prevent ArrayIndexOutOfBounds
+            if (i - j >= 0)
+                (dp[i] += dp[i - j]) %= mod;
+    }
+    cout << dp[n];
     return 0;
 }

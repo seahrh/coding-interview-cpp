@@ -18,6 +18,7 @@ SOLUTION
 Directed acyclic graph where edge represents "SubordinateOf".
 dp[i] = #subordinates of employee i
 Recurrence: dp[self] += dp[child] + 1
+Base case: leaf node has zero subordinates.
 Time O(N)
 Space O(N): each employee can have at most one boss
 */
@@ -25,7 +26,7 @@ Space O(N): each employee can have at most one boss
 #define ll long long
 using namespace std;
 // nodes are 1-indexed
-ll N = 2e5 + 1;
+const ll N = 2e5 + 1;
 // no need to mark visited bec DAG has no cycles
 vector<vector<ll>> adj(N);
 vector<ll> dp(N);

@@ -85,13 +85,13 @@ int main()
             if (grid[i][j] == 'B')
                 end = k;
             // add edge if top cell is floor
-            if (i >= 1 && grid[i - 1][j] != '#')
+            if (i - 1 >= 0 && grid[i - 1][j] != '#')
             {
                 adj[k].push_back(k - m);
                 adj[k - m].push_back(k);
             }
             // add edge if left cell is floor
-            if (j >= 1 && grid[i][j - 1] != '#')
+            if (j - 1 >= 0 && grid[i][j - 1] != '#')
             {
                 adj[k - 1].push_back(k);
                 adj[k].push_back(k - 1);
